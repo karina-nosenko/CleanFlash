@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous">
+
+</script>
+
+
+    <title>test</title>
+
+    <style>
+        .menu {
+            width: 200px;
+            height: 100%;
+            position: fixed;
+            left: -200px;
+            top: 0;
+            background-color: #f0f0f0;
+            box-shadow: 1px 0 5px #c0c0c0;
+            transition: all ease1s;
+        }
+
+        .close-menu {
+            float: right;
+            min-height: 30px;
+            padding-right: 18px;
+            padding-top: 23px;
+            cursor: pointer;
+        }
+
+        .menu ul {
+            padding-left: 0;
+            margin-top: 80px;
+        }
+
+        .menu li {
+            list-style: none;
+            text-decoration-style: none;
+            line-height: 170%;
+            padding: 5px 0 5px 40px;
+        }
+
+        .menu li a {
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+            color: #292929;
+        }
+
+        .menu li:hover {
+            background-color: #56c2f0;
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="mhead">
+        <img class="menu-ham" src="hamburger.png">
+        <header>Menu</header>
+    </div>
+
+    <div class="menu">
+
+        <div class="close-menu">
+            <img src="close.png">
+        </div>
+
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">jQuery</a></li>
+            <li><a href="#">Script</a></li>
+            <li><a href="#">Net</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+
+        <script>
+            $('.menu-ham').click(function () {
+                $('.menu').animate({left:'0px'}, 100)
+            });
+
+            $('.close-menu').click(function () {
+                $('.menu').animate({left:'-200px'}, 100)
+            });
+        </script>
+
+    </div>
+
+</body>
+
+</html>
