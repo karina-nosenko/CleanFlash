@@ -19,8 +19,8 @@ $(document).ready(function() {
     const mediaQuery = window.matchMedia('(min-width: 480px)');
 
     mediaQuery.addEventListener( "change", (e) => {
-        if (e.matches) {
-            $('.menu').show();
+        if (e.matches && document.getElementsByClassName("menu")[0].style.display == "none") {
+            location.reload();
         }
     });
 });

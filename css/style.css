@@ -12,12 +12,16 @@ body{
     flex-direction: column;
 
     font-family: 'Lato', sans-serif;
+
+    z-index: -10;
 }
 
 #wrapper{
     margin: 100px auto 0 auto;
     width: 360px;
     min-height: 100vh;
+
+    z-index: -10;
 }
 
 /*************HEADER*************/
@@ -111,6 +115,7 @@ header{
     width: 27px;
     height: 24px;
     margin-left: 27px;
+    margin-top: 11px;
 
     position: fixed;
 }
@@ -215,7 +220,7 @@ header{
     margin: auto;
   }
 
-  .material-icons{
+  #mainNav .material-icons{
     margin-top: 12px;
   }
 
@@ -247,12 +252,20 @@ header{
   main header{
       width: 100%;
       height: 50px;     
-      background-color: transparent;
 
+      position: fixed;
+      top:100px;
+      left: 0;
+      background-color: #ffffff;
+  }
+
+  main header span{
       position: absolute;
-      top: 0;
+      margin: 11px 15px;
+  }
 
-      z-index: -1;
+  main header span:nth-child(3){
+      right: 25px;
   }
 
   main header h1{
@@ -269,10 +282,46 @@ header{
 
       position: absolute;
       top: 50px;
-
+    /***/
+      padding: 0 20px;
+    /***/
       z-index: -1;
+
+      display: flex;
+      flex-wrap: wrap;
   }
-  
+
+  /*************FOR LIST PAGE*************/
+  #content .list-item{
+      width: 100%;
+      height: 60px;
+      color: #000000;
+      text-decoration: none;
+      font-size: 16px;
+    
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+
+      border-bottom: 2px solid #D6D6D6;
+  }
+
+  #content .list-item:hover{
+      background-color: #D6D6D6;
+  }
+
+  #content .list-item .material-icons-outlined{
+      position: relative;
+  }
+
+  #content .list-item section span:nth-child(3){
+      color: #909090;
+      font-size: 15px;
+  }
+
+  #content .list-item section:nth-child(2){
+      width: 150px;
+  }
 
   /*************FOOTER*************/
 
@@ -299,8 +348,18 @@ header{
 
   @media only screen and (min-width: 480px){
 
+    #content .list-item{
+        width: 350px;
+        margin-right:50px;
+    }
+
     main header{
-        top: 40px;
+        height:90px;
+        top: 160px;
+    }
+
+    main header h1{
+        margin-top: 40px; 
     }
 
     main #content{
@@ -315,51 +374,51 @@ header{
         display: none;
     }
 
-      #wrapper{
-          margin-top: 160px;
-          margin-left: 200px;
-          margin-right: 150px;
-          width: auto;
-      }
+    #wrapper{
+        margin-top: 160px;
+        margin-left: 200px;
+        margin-right: 150px;
+        width: auto;
+    }
 
-      #mainNav{
-          top: 100px;
-          filter: none;
-          justify-content: flex-start;
-      }
+    #mainNav{
+        top: 100px;
+        filter: none;
+        justify-content: flex-start;
+    }
 
-      #mainNav a:nth-child(3){ 
-        order: 1;
-      }
+    #mainNav a:nth-child(3){ 
+      order: 1;
+    }
 
-      #mainNav a:nth-child(2){
-          order: -1;
-          margin-left: 180px;
-      }
+    #mainNav a:nth-child(2){
+        order: -1;
+        margin-left: 180px;
+    }
 
-      #mainNav a{
-          margin-right: 50px;
-      }
+    #mainNav a{
+        margin-right: 50px;
+    }
 
-      .menu-ham, .close-menu{
-          display: none;
-      }
+    .menu-ham, .close-menu{
+        display: none;
+    }
 
-      .menu{
-          display: block; 
-          position: fixed;
-          left: 0;
-          top: 160px;
-          bottom: 0;
-      }
+    .menu{
+        display: block; 
+        position: fixed;
+        left: 0;
+        top: 160px;
+        bottom: 0;
+    }
 
-      footer{
-          display: block;
-      }
+    footer{
+        display: block;
+    }
 
-      .breadcrumb{
-          visibility: visible;
-      }
+    .breadcrumb{
+        visibility: visible;
+    }
   }
 
 
