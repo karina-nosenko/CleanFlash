@@ -25,3 +25,35 @@ $(document).ready(function() {
     });
 });
 
+/*------------------------------------------------------*/
+function check() {
+    var y = document.forms["myForm"]["img"].value;
+    if(y==0){
+        alert("Please upload a picture of the waste");
+        return false;
+    }
+    var z = document.forms["myForm"]["location"].value;
+    if(z==""){
+      alert("Please enter location");
+        return false;
+    }
+    alert("The details successfully accepted");
+
+}
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(Accepted);
+  } else { 
+    var x = document.getElementById("locationNotaccepted");
+    x.innerHTML = " "+"location is not supported by this browser.";
+  }
+}
+
+function Accepted(position) {
+    var y= document.getElementById("locationText");
+    y.innerHTML = " "+ position.coords.latitude + 
+    "  " + position.coords.longitude;
+    var x = document.getElementById("locationAccepted");
+  x.innerHTML = "the location succesfully accepted";
+}
+/**/

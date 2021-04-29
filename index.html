@@ -7,11 +7,10 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 
         <!-- JQuery -->
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
-        
+
         <!-- Google Fonts -->
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
@@ -23,7 +22,6 @@
         <link rel="icon" href="favicon.ico">
 
         <title>CleanFlash</title>
-
     </head>
     <body>
         <!-- HEADER -->
@@ -42,15 +40,15 @@
 
         <!-- MAIN NAVIGATION -->
         <nav id="mainNav">
-            <a href="#">
+            <a href="#" >
                 <span class="material-icons">timelapse</span>
                 <p>Open events</p>
             </a>
-            <a href="#">
+            <a href="#" class="selected">
                 <span class="material-icons">home</span>
                 <p>Home</p>
             </a>
-            <a href="#" class="selected"> 
+            <a href="List.html"> 
                 <span class="material-icons">assignment_turned_in</span>
                 <p>Closed Events</p>
             </a>
@@ -74,7 +72,7 @@
             
                     <ul>
                         <li>
-                            <a href="#">
+                            <a href="#" class="selected">
                                 <span class="material-icons">home</span>
                                 <span class="link">Home</span>
                             </a>
@@ -86,21 +84,9 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="selected">
+                            <a href="List.html">
                                 <span class="material-icons">assignment_turned_in</span>
                                 <span class="link">Closed Events</span>
-                            </a>
-                        </li>
-                        <li class="closed-additional">
-                            <a href="#">
-                                <span class="material-icons">cached</span>
-                                <span class="link">Recovered Events</span>
-                            </a>
-                        </li>
-                        <li class="closed-additional">
-                            <a href="#">
-                                <span class="material-icons">delete</span>
-                                <span class="link">Deleted Events</span>
                             </a>
                         </li>
                         <li>
@@ -115,125 +101,32 @@
             </nav>
 
             <!-- BREADCRUMBS -->
-            <nav aria-label="breadcrumb">
+            <!-- <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="#">Home</a></li>
                   <li class="breadcrumb-item active" aria-current="page">Closed Events</li>
                 </ol>
-            </nav>
+            </nav> -->
 
             <!-- MAIN -->
             <main>
-                <header>
-                    <h1>Closed Events</h1>
-                    <span class="material-icons">filter_alt</span>
-                    <span class="material-icons">apps</span>
-                </header>
+                <!-- <header>
+                    <h1></h1>
+                </header> -->
 
                 <section id="content">
-
-                    <a class="list-item" href="object.html?objId=1">
-                        <span class="material-icons">assignment_turned_in</span>
-                        <section>
-                            <span>Haifa, Hayezira 18</span><br>
-                            <span>Date:</span>
-                        </section>
-                        <section>
-                            <span>10:45 AM</span><br>
-                            <span>12/11/2020</span>
-                        </section>
-                        <span class="material-icons-outlined" title="Event Type: Area Cleaning">info</span>
-                    </a>
-                        
-
-                    <a class="list-item" href="object.html?objId=2">
-                        <span class="material-icons">assignment_turned_in</span>
-                        <section>
-                            <span>Haifa, Hayezira 18</span><br>
-                            <span>Date:</span>
-                        </section>
-                        <section>
-                            <span>10:30 AM</span><br>
-                            <span>12/11/2020</span>
-                        </section>
-                        <span class="material-icons-outlined" title="Event Type: Area Cleaning">info</span>
-                    </a>
-
-                    <a class="list-item" href="object.html?objId=3">
-                        <span class="material-icons">assignment_turned_in</span>
-                        <section>
-                            <span>Haifa, Einstein 100</span><br>
-                            <span>Date:</span>
-                        </section>
-                        <section>
-                            <span>1:18 AM</span><br>
-                            <span>20/09/2020</span>
-                        </section>
-                        <span class="material-icons-outlined" title="Event Type: Spot Cleaning">info</span>
-                    </a>
-
-                    <a class="list-item" href="object.html?objId=4">
-                        <span class="material-icons">assignment_turned_in</span>
-                        <section>
-                            <span>Haifa, Tel Aviv 1</span><br>
-                            <span>Date:</span>
-                        </section>
-                        <section>
-                            <span>6:59 AM</span><br>
-                            <span>27/02/2020</span>
-                        </section>
-                        <span class="material-icons-outlined" title="Event Type: Spot Cleaning">info</span>
-                    </a>
-
-                    <a class="list-item" href="object.html?objId=5">
-                        <span class="material-icons">assignment_turned_in</span>
-                        <section>
-                            <span>Haifa, Hahashmal 36</span><br>
-                            <span>Date:</span>
-                        </section>
-                        <section>
-                            <span>11:41 AM</span><br>
-                            <span>19/01/2020</span>
-                        </section>
-                        <span class="material-icons-outlined" title="Event Type: Call to Bin">info</span>
-                    </a>
-
-                    <a class="list-item" href="object.html?objId=6">
-                        <span class="material-icons">assignment_turned_in</span>
-                        <section>
-                            <span>Haifa, Eilat 15</span><br>
-                            <span>Date:</span>
-                        </section>
-                        <section>
-                            <span>12:16 AM</span><br>
-                            <span>29/11/2020</span>
-                        </section>
-                        <span class="material-icons-outlined" title="Event Type: Area Cleaning">info</span>
-                    </a>
-
-                    <a class="list-item" href="object.html?objId=7">
-                        <span class="material-icons">assignment_turned_in</span>
-                        <section>
-                            <span>Haifa, Eilat 15</span><br>
-                            <span>Date:</span>
-                        </section>
-                        <section>
-                            <span>12:16 AM</span><br>
-                            <span>29/11/2019</span>
-                        </section>
-                        <span class="material-icons-outlined" title="Event Type: Call to Bin">info</span>
-                    </a>
-
+                    <article class="circleLimit"><a class="callToaction"
+                        href="File.html">
+                        <p class="circle-1"><span>Call to AutoRobot</span></p>
+                    </a></article>
                 </section>
 
             </main>
-
         </div>
-
+        <!--CallToAction-->
         <!-- FOOTER -->
         <footer>
             <p>Made by Yosef & Karina &copy; 2021</p>
         </footer>
     </body>
 </html>
-
