@@ -37,8 +37,6 @@ function check() {
       alert("Please enter location");
         return false;
     }
-    alert("The details successfully accepted");
-
 }
 function getLocation() {
   if (navigator.geolocation) {

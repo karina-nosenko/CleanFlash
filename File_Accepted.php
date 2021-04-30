@@ -27,6 +27,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="css/style.css">
     <script src="js/scripts.js"></script>
     <link rel="icon" href="favicon.ico">
@@ -124,40 +125,12 @@
         <!-- MAIN -->
         <main>
             <header>
-                <h1>Spot Cleaning</h1>
+                <h1> <?php
+                    echo "The details accepted successffully";
+            ?></h1>
             </header>
 
             <section id="content">
-                <form action="File_Accepted.php" name="myForm" method="GET" onsubmit="return check()">
-                    <label class="asterisk">*</label>
-                    <label><b>Click the button to get your coordinates <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                <path
-                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                            </svg></b></label><br>
-                    <textarea name="location" id="locationText" onclick="getLocation()" placeholder="        Enter the location"
-                        class="search-input-1"></textarea>
-                    <br>
-                    <p id="locationAccepted"></p>
-                    <p id="locationNotaccepted"></p>
-                    <br>
-                    <label class="asterisk">*</label>
-                    <label><b>Please select the type of waste</b></label><br>
-                    <select name="age" id="age" required class="combo-box-1">
-                        <option value="">Select</option>
-                        <option value="Metal">Metal</option>
-                        <option value="Wood">Wood</option>
-                        <option value="Plastic">Plastic</option>
-                        <option value="Organic">Organic</option>
-                        <option value="Glass">Glass</option>
-                        <option value="Other">Other</option>
-                    </select>
-                    <br><br>
-                    <label class="asterisk">*</label>
-                    <label><b>Please attach a picture of the waste</b></label><br>
-                    <input type="file" id="img" name="img" accept="image/*"><br><br>
-                    <input type="submit" id="submit" class="btn btn-primary btn-lg">
-                </form>
             </section>
 
         </main>

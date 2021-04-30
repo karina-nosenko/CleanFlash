@@ -7,7 +7,9 @@ header, main, nav, aside, footer{
 body{
     position: relative;
 
-    min-height: 100vh;
+    /*min-height: 100vh;*/
+    height: auto;
+
     display: flex;
     flex-direction: column;
 
@@ -19,9 +21,13 @@ body{
 #wrapper{
     margin: 100px auto 0 auto;
     width: 360px;
-    min-height: 100vh;
+    min-height: auto;
 
     z-index: -10;
+}
+
+.overflow{
+    overflow: scroll;
 }
 
 /*************HEADER*************/
@@ -240,7 +246,8 @@ header{
 
   main{
       width: 100%;
-      height: 479px;
+      height: 100vh;
+      margin-bottom: 58px;
 
       position: relative;
       display: flex;
@@ -324,10 +331,10 @@ header{
   }
 
     /*******************CallToAction**************************/
-.callToaction{              /*Call to action*/
+.callToaction{             
 	text-decoration: none;
 }
-.callToaction:hover{              /*Call to action*/
+.callToaction:hover{         
 	text-decoration: none;
 }
 .callToaction p{	
@@ -369,6 +376,63 @@ header{
     position: relative;
     margin-top: 10%;
     z-index: 0;
+}
+
+/*****************Frequently***********************/
+.frequently_1 {
+	width: 319px;
+	height: 37px;
+	padding: 8px 8px 8px 8px;
+	box-shadow: 0px 2px 2px rgba(96, 96, 96, 0.3);
+	background: #eeeeee;
+}
+.vertical{
+        width: 1px;
+        height: 17px;
+        border-color: #555555;
+        border-width: 0.5px;
+        border-style: solid;
+        margin-top: 5px;
+}
+.keyboard-arrow-right-icon-1 {
+	width: 23px;
+	height: 23px;
+	background: #777777;
+}
+.left_text_freq{
+    margin-top: 0px;
+    width: 120px;
+    height: 50px;
+}
+.left_text_freq span{
+    margin-bottom: 12px;
+}
+.frequently_1{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 2px;
+}
+.right_text_freq{
+    width: 130px;
+    height: 50px;
+    margin-left: 12px;
+}
+.right_text_freq span{
+    margin-left: 1px;
+}
+.arrow_right{
+    margin-left: 15px;
+}
+.frequently{    
+    display: flex;
+    flex-wrap: wrap;
+    width: 319px;
+    height: auto;
+    margin-left: 3%;
+}
+.frequently a,.frequently_1:hover{
+    text-decoration: none;
+    color: black;
 }
 
 /*************Object**************/
@@ -490,6 +554,12 @@ header{
         height: 359px;
         font-size: 58px;
     }
+
+    /*Frequently*/
+    .frequently{
+        margin-left: 37%;
+    }
+    /****/
 
     #content .list-item{
         width: 350px;
