@@ -125,12 +125,14 @@
         <!-- MAIN -->
         <main>
             <header>
-                <h1> <?php
-                    echo "The details accepted successffully";
-            ?></h1>
             </header>
 
             <section id="content">
+                <h5> 
+                    <?php
+                        <b>echo "The details accepted successffully"</b>
+                    ?>
+                </h5>
             </section>
 
         </main>
