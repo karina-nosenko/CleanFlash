@@ -104,7 +104,6 @@ header{
     left: -180px;
     background-color: #555555;
     box-shadow: 1px 0 5px #c0c0c0;
-    transition: all ease1s;
 
     display: none;
 }
@@ -144,7 +143,6 @@ header{
 .menu a {
     width: 180px;
     height: 40px;
-    text-decoration-style: none;
 
     text-decoration: none;
     font-size: 16px;
