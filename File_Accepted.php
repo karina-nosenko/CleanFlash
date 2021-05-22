@@ -125,8 +125,8 @@
 
         <!-- MAIN -->
         <main>
-            <header>
-            </header>
+            <section class="header">
+            </section>
 
             <section id="content">
                 <h5> 
