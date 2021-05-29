@@ -1,29 +1,31 @@
+
+/* Open the side navigation if the screen width turns to be more than 480px, if less - hide */
 $(document).ready(function() {
 
-    //Hamburger
-    $('.menu-ham').click(function () {
-        $('.menu').animate({
-            left:'0px', 
-        }, 100)
-        $('.menu').show();
-    });
-    
-    $('.close-menu').click(function () {
-        $('.menu').animate({
-            left:'-180px',
-        }, 100)
-        $('.menu').hide();
-    });
+  const mediaQuery = window.matchMedia('(min-width: 480px)');
 
-    //Show side menu on desktop even if it was closed on the phone
-    const mediaQuery = window.matchMedia('(min-width: 480px)');
-
-    mediaQuery.addEventListener( "change", (e) => {
-        if (e.matches && document.getElementsByClassName("menu")[0].style.display == "none") {
-            location.reload();
-        }
-    });
+  mediaQuery.addEventListener( "change", (e) => {
+      if (e.matches) {
+        openNav();
+      }
+      else {
+        closeNav();
+      }
+  });
 });
+
+
+/* Set the width of the side navigation to 180px and the left margin of the page content to 180px */
+function openNav() {
+  document.getElementById("mySidenav").style.width = "180px";
+  /*document.getElementById("main").style.marginLeft = "180px";*/
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+  /*document.getElementById("main").style.marginLeft = "0";*/
+}
 
 /*------------------------------------------------------*/
 function check() {
