@@ -128,7 +128,7 @@ header {
 .sidenav .closebtn {
     position: absolute;
     top: -55px;
-    right: 25px;
+    right: -10px;
     font-size: 36px;
     margin-left: 50px;
 }
@@ -141,6 +141,125 @@ header {
     z-index: 4;
 }
 
+.accordion {
+    width: 100%;
+    max-width: 384px;
+    margin: 30px auto 20px;
+    background: #555555;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 0px
+}
+
+.accordion .link {
+    cursor: pointer;
+    display: block;
+    padding: 15px 15px 15px 42px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    border-bottom: 1px solid #CCC;
+    position: relative;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+    white-space: nowrap;
+    font-weight: initial;
+}
+
+.accordion li:last-child .link {
+    border-bottom: 0
+}
+
+.accordion li i {
+    position: absolute;
+    top: 16px;
+    left: 12px;
+    font-size: 18px;
+    color: #595959;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease
+}
+
+.accordion .submenu a {
+    font-size: 16px;
+}
+
+.accordion li i.fa-chevron-down {
+    right: 12px;
+    left: auto;
+    font-size: 16px;
+}
+
+.accordion .down .material-icons {
+    position: relative;
+    right: 42px;
+    top: -20px;
+}
+
+.accordion .material-icons {
+    position: relative;
+    top: -3px;
+}
+
+.accordion li.open .link {
+    color: #fff
+}
+
+.accordion li.open i {
+    color: #fff;
+}
+
+.accordion li.open i.fa-chevron-down {
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.submenu {
+    display: none;
+    background: #ccc;
+    font-size: 14px
+}
+
+.submenu li {
+    border-bottom: 1px solid #4b4a5e
+}
+
+.submenu a {
+    display: block;
+    text-decoration: none;
+    color: #000;
+    padding: 12px;
+    padding-left: 42px;
+    -webkit-transition: all 0.25s ease;
+    -o-transition: all 0.25s ease;
+    transition: all 0.25s ease
+}
+
+.submenu a:hover {
+    background: #777;
+    color: #FFF
+}
+
+.accordion .fa {
+    color: #fff;
+}
+
+.accordion .fa .material-icons {
+    position: relative;
+    bottom: 4px;
+}
+
+.accordion #selected .link{
+    font-weight: bold;
+}
+
+.sidenav .accordion li :hover {
+    background-color: #ccc;
+}
 
 /* Main Navigation */
 
@@ -154,8 +273,6 @@ header {
     bottom: 0;
     display: flex;
     justify-content: space-between;
-
-    z-index: 10;
 }
 
 #mainNav a {
@@ -574,5 +691,4 @@ footer p{
     .frequently{
         margin-left: 37%;
     }
-
  }

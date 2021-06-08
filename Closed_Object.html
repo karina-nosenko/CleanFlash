@@ -10,6 +10,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
         <!-- JQuery -->
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
@@ -63,7 +64,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item"><a href="List.html">Closed Events</a></li>
+                    <li class="breadcrumb-item"><a href="Closed_List.html">Closed Events</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Haifa, Hayezira 18</li>
                     </ol>
                 </nav>
@@ -81,10 +82,25 @@
 
             <div id="mySidenav" class="sidenav">
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><span class="material-icons">menu_open</span></a>
-                <a href="#"><span class="material-icons">home</span>Home</a>
-                <a href="#"><span class="material-icons">timelapse</span>Open Events</a>
-                <a href="#"><span class="material-icons">assignment_turned_in</span>Closed Events</a>
-                <a href="#"><span class="material-icons">settings</span>Settings</a>
+
+                <ul id="accordion" class="accordion">
+                    <li>
+                        <a href="index.html" class="link"><i class="fa"><span class="material-icons">home</span></i>Home</a>
+                    </li>
+                    <li>
+                        <a href="#" class="link"><i class="fa"><span class="material-icons">timelapse</span></i>Open Events</a>
+                    </li>
+                    <li id="selected">
+                        <a href="Closed_List.html" class="link" id="hasSubmenu"><span class="down"><i class="fa"><span class="material-icons">assignment_turned_in</span></i>Closed Events</span><i class="fa fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="#"><span class="material-icons">cached</span>Recovered</a></li>
+                            <li><a href="#"><span class="material-icons">delete</span>Deleted</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="link"><i class="fa"><span class="material-icons">settings</span></i>Settings</a>
+                    </li> 
+                </ul> 
             </div>
 
             <!-- Main content -->
