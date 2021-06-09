@@ -312,7 +312,7 @@ header {
   visibility: hidden;
   height: 40px;
   font-size: 14px;
-  background-color: white;
+  background-color: #f5f5f5;
   left: 180px;
   top: 160px;
   border-radius: 0;
@@ -379,7 +379,7 @@ footer p{
     opacity: 60%;
 }
 
-/************* Closed Events *************/
+/************* Events List *************/
 
 #main .list-item{
     width: 100%;
@@ -406,6 +406,10 @@ footer p{
 
 #main .list-item section:nth-child(2){
     width: 150px;
+}
+
+#main .list-item .disabled {
+    color: #ccc;
 }
 
 /************* Closed Object *************/

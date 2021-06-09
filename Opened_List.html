@@ -46,11 +46,11 @@
 
                 <!-- Main Navigation -->
                 <nav id="mainNav">
-                    <a href="Opened_List.html">
+                    <a href="#" class="selected">
                         <span class="material-icons">timelapse</span>
                         <p>Open events</p>
                     </a>
-                    <a href="index.html" class="selected">
+                    <a href="index.html">
                         <span class="material-icons">home</span>
                         <p>Home</p>
                     </a>
@@ -64,7 +64,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Spot Cleaning</li>
+                    <li class="breadcrumb-item active" aria-current="page">Open Events</li>
                     </ol>
                 </nav>
              
@@ -72,6 +72,9 @@
 
             <!-- Heading -->
             <section class="header">
+                <h1>Open Events</h1>
+                <span class="material-icons">filter_alt</span>
+                <span class="material-icons">apps</span>
             </section>
 
             <!-- Side Navigation + Hamburger -->
@@ -81,11 +84,11 @@
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><span class="material-icons">menu_open</span></a>
 
                 <ul id="accordion" class="accordion">
-                    <li id="selected">
+                    <li>
                         <a href="index.html" class="link"><i class="fa"><span class="material-icons">home</span></i>Home</a>
                     </li>
-                    <li>
-                        <a href="Opened_List.html" class="link"><i class="fa"><span class="material-icons">timelapse</span></i>Open Events</a>
+                    <li id="selected">
+                        <a href="#" class="link"><i class="fa"><span class="material-icons">timelapse</span></i>Open Events</a>
                     </li>
                     <li>
                         <a href="Closed_List.html" class="link" id="hasSubmenu"><span class="down"><i class="fa"><span class="material-icons">assignment_turned_in</span></i>Closed Events</span><i class="fa fa-chevron-down"></i></a>
@@ -104,11 +107,45 @@
             <div id="main">
                 <div class="whiteSpace"></div>
 
-                <h5> 
-                    <?php
-                        echo "<b>The details accepted successffully</b>"
-                    ?>
-                </h5>
+                <a class="list-item" href="#">
+                    <span class="material-icons">timelapse</span>
+                    <section>
+                        <span>Haifa, Ruppin 37</span><br>
+                        <span>Date:</span>
+                    </section>
+                    <section>
+                        <span>11:42 AM</span><br>
+                        <span>08/01/2021</span>
+                    </section>
+                    <span class="material-icons" title="edit">edit</span>
+                </a>
+                    
+
+                <a class="list-item" href="#">
+                    <span class="material-icons">timelapse</span>
+                    <section>
+                        <span>Haifa, Ruppin 38</span><br>
+                        <span>Date:</span>
+                    </section>
+                    <section>
+                        <span>10:40 AM</span><br>
+                        <span>08/01/2021</span>
+                    </section>
+                    <span class="disabled"><span class="material-icons" title="no edit">edit</span></span>
+                </a>
+
+                <a class="list-item" href="#">
+                    <span class="material-icons">timelapse</span>
+                    <section>
+                        <span>Haifa, Einstein 99</span><br>
+                        <span>Date:</span>
+                    </section>
+                    <section>
+                        <span>10:38 AM</span><br>
+                        <span>08/01/2021</span>
+                    </section>
+                    <span class="material-icons" title="edit">edit</span>
+                </a>
 
             </div>
 
