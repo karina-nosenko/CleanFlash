@@ -1,8 +1,8 @@
 
-/* Open the side navigation if the screen width turns to be more than 480px, if less - hide */
+/* Open the side navigation if the screen width turns to be more than 536px, if less - hide */
 $(document).ready(function() {
 
-  const mediaQuery = window.matchMedia('(min-width: 480px)');
+  const mediaQuery = window.matchMedia('(min-width: 536px)');
 
   mediaQuery.addEventListener( "change", (e) => {
       if (e.matches) {
