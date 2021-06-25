@@ -5,7 +5,6 @@
 <?php
     error_reporting(0);
     $delete = $_GET["delete"];
-    // $create = $_GET["create"];
     if($delete) {
         $query = "DELETE FROM tbl_events_216 WHERE event_id='$delete'";
         $result = mysqli_query($connection, $query);
@@ -16,7 +15,7 @@
     } 
 
     // get all data from DB
-    $query = "SELECT * FROM tbl_events_216 WHERE event_status=0 order by date";
+    $query = "SELECT * FROM tbl_events_216 WHERE event_status=0 order by start_time and date";
     $result = mysqli_query($connection, $query);
 
     if(!$result) {

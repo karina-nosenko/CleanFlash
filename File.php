@@ -190,7 +190,6 @@
                     <input type="hidden" name="event_status" value="0">
                     <input type="hidden" name="state" value="<?php echo $state;?>">
                     <input type="hidden" name="objId" value="<?php echo $objId;?>">
-                    <!-- <input type="hidden" name="create" value="<?php echo $objId;?>"> -->
 
                     <input type="submit" id="submit" class="btn btn-primary btn-lg">
                 </form>
