@@ -2,36 +2,26 @@
     include "db.php";
 ?>
 
-<?php 
-	//get data from querystring and escape variables for security
-	$location 	    = mysqli_real_escape_string($connection, $_GET['location']);
-	$event_type  	= mysqli_real_escape_string($connection, $_GET['event_type']);
-	$waste_type    	= mysqli_real_escape_string($connection, $_GET['waste_type']);
-    $image_before   = mysqli_real_escape_string($connection, $_GET['img']);
-    $event_status   = mysqli_real_escape_string($connection, $_GET['event_status']);
-	$state    	    = $_GET['state'];
-	$objId    	    = $_GET['objId'];
-
-    //SET: insert/update data in DB
-	if ($state == "insert") {
-		$query = "INSERT INTO tbl_events_216(address,event_type,waste_type,image_before,event_status, start_time, date) 
-                    VALUES ('$location','$event_type','$waste_type','$image_before','$event_status', current_timestamp , current_date)";
-	}
-    else{
-        $query = "UPDATE tbl_events_216 SET address='$location',event_type='$event_type',waste_type='$waste_type',image_before='$image_before',event_status='$event_status', start_time=current_timestamp, date=current_date WHERE event_id='$objId'";
-    }
-
+<?php
+    // get data from DB
+    $objId = $_GET["objId"];
+    $query = "SELECT * FROM tbl_events_216 where event_id=" . $objId;
     $result = mysqli_query($connection, $query);
 
-    if(!$result){
-        die("DB query failed.");
+    if($result) {
+        $row = mysqli_fetch_assoc($result);
     }
+    else die("DB query failed.");
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8"> 
+
+        <!-- Bootstrap for modal box -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
         <!-- Bootstrap -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -80,11 +70,11 @@
                         <span class="material-icons">timelapse</span>
                         <p>Open events</p>
                     </a>
-                    <a href="index.html" class="selected">
+                    <a href="index.html">
                         <span class="material-icons" id="home_icon">home</span>
                         <p>Home</p>
                     </a>
-                    <a href="Closed_List.php"> 
+                    <a href="#" class="selected"> 
                         <span class="material-icons" id="closed_icon">assignment_turned_in</span>
                         <p>Closed Events</p>
                     </a>
@@ -94,7 +84,12 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Spot Cleaning</li>
+                    <li class="breadcrumb-item"><a href="Closed_List.php">Closed Events</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        <?php
+                            echo $row["address"];
+                        ?>
+                    </li>
                     </ol>
                 </nav>
              
@@ -102,6 +97,10 @@
 
             <!-- Heading -->
             <section class="header" id="mob_h">
+                <?php
+                    echo '<h1>' . $row["address"] . '</h1>';
+                ?>
+                <span class="material-icons" data-toggle="modal" data-target="#note_msg" class="deletion_icon">delete</span>
             </section>
 
             <!-- Side Navigation + Hamburger -->
@@ -111,13 +110,13 @@
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><span class="material-icons">menu_open</span></a>
 
                 <ul id="accordion" class="accordion">
-                    <li id="selected">
+                    <li>
                         <a href="index.html" class="link"><i class="fa"><span class="material-icons">home</span></i>Home</a>
                     </li>
                     <li>
                         <a href="Opened_List.php" class="link"><i class="fa"><span class="material-icons">timelapse</span></i>Open Events</a>
                     </li>
-                    <li>
+                    <li id="selected">
                         <a href="Closed_List.php" class="link" id="hasSubmenu"><span class="down"><i class="fa"><span class="material-icons">assignment_turned_in</span></i>Closed Events</span><i class="fa fa-chevron-down"></i></a>
                         <ul class="submenu">
                             <li><a href="#"><span class="material-icons">cached</span>Recovered</a></li>
@@ -136,14 +135,69 @@
 
                 <!-- Heading -->
                 <section class="header" id="desk_h">
+                    <?php
+                        echo '<h1>' . $row["address"] . '</h1>';
+                    ?>
+                    <span class="material-icons" data-toggle="modal" data-target="#note_msg" class="deletion_icon">delete</span>
                 </section>
 
-                <h5> 
+                <!-- Confirmation before deletion -->
+                <div class="modal fade" id="note_msg" role="dialog">
+                    <div class="modal-dialog">  
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Confirm Deletion</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>Are you sure you want to delete that event?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal"><b>No, cansel</b></button>
+                                <form action="Closed_List.php" method="GET">
+                                    <input type="hidden" name="delete" value="<?php echo $objId;?>">
+                                    <input type="submit" value="Yes, continue" class="btn btn-default">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sub_container1">
                     <?php
-                        echo "<b>The details accepted successffully</b><br>"
+                        $img_1 = $row["image_before"];
+                        $img_2 = $row["image_after"];
+                        if(!$img_1) $img = "images/Image_1.png";
+                        if(!$img_2) $img = "images/Image_2.png";
+
+                        echo '<p><b>Event type: </b>' . $row["event_type"] . '</p>';
+                        echo '<p><b>Date: </b>' . $row["date"] . '</p>';
+                        echo '<p><b>Start time: </b>' . $row["start_time"] . '</p>';
+                        echo '<p><b>Finish time: </b>' . $row["finish_time"] . '</p>';
+                        echo '<p><b>Treatment time: </b><span class="ArrivedOnTime">' . $row["arrival_status"] . '</span></p>';
                     ?>
-                    <a href="Opened_List.php" class="btn btn-primary btn-lg" id="return">Go to Opened Events List</a>
-                </h5>
+
+                    <button type="button" class="btn btn-secondary"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="13" height="13" fill="currentColor" class="bi bi-bootstrap-reboot"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M1.161 8a6.84 6.84 0 1 0 6.842-6.84.58.58 0 1 1 0-1.16 8 8 0 1 1-6.556 3.412l-.663-.577a.58.58 0 0 1 .227-.997l2.52-.69a.58.58 0 0 1 .728.633l-.332 2.592a.58.58 0 0 1-.956.364l-.643-.56A6.812 6.812 0 0 0 1.16 8z" />
+                            <path
+                                d="M6.641 11.671V8.843h1.57l1.498 2.828h1.314L9.377 8.665c.897-.3 1.427-1.106 1.427-2.1 0-1.37-.943-2.246-2.456-2.246H5.5v7.352h1.141zm0-3.75V5.277h1.57c.881 0 1.416.499 1.416 1.32 0 .84-.504 1.324-1.386 1.324h-1.6z" />
+                        </svg> Recover Event</button><br><br>
+                </div>
+                <div class="sub_container2">
+                    <p>Before <span class="After_span">After</span></p>
+                    <?php
+                        echo '<img src="' . $img_1 . '" class="Image_before" alt="before" title="before">';
+                        echo '<img src="' . $img_2 . '" class="Image_after" alt="after" title="after">';
+                    ?>
+                </div>
+
+                <?php
+                    //release returned data
+                    mysqli_free_result($result);
+                ?>
 
             </div>
 

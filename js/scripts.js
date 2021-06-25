@@ -1,3 +1,12 @@
+/* Make the "select" input selected when updating */
+$(document).ready(function() {
+
+  const selectObj = document.querySelector('#cat');
+    ind = selectObj.dataset.selected;
+    console.log(ind);
+    selectObj.options[ind].selected = true;
+});
+
 
 /* Open the side navigation if the screen width turns to be more than 536px, if less - hide */
 $(document).ready(function() {
@@ -16,6 +25,7 @@ $(document).ready(function() {
 
 /* Disable href when clicking on side menu link to open an accordion */
 $(document).ready(function() {
+  
     var currLink = $("#hasSubmenu").attr("href");
     
     $(".accordion li i.fa-chevron-down").click(function(){
@@ -26,6 +36,12 @@ $(document).ready(function() {
       $("#hasSubmenu").attr("href", currLink);
     }); 
 });
+
+/* Redirect when clicking on the pencil to edit */
+function redirectIt(obj){
+  var goToLink = obj.getAttribute("href");
+  window.location.href=goToLink;
+}
 
 /* Set the width of the side navigation to 180px and the left margin of the page content to 180px */
 function openNav() {
@@ -64,33 +80,32 @@ $(function() {
   var accordion = new Accordion($('#accordion'), false);
 });
 
+
+/* Change the accordion arrows when opening and closing the accordion on the File_Event_type page */
+$(document).ready(function() {
+  
+    $("a.accordion-toggle.collapsed").click(function(){
+      $("i.fas.fa-angle-right::before").toggle();
+      $("i.fas.fa-angle-down::before").toggle();
+    }); 
+});
+
+
 /*------------------------------------------------------*/
 function check() {
-    var y = document.forms["myForm"]["img"].value;
+    /*var y = document.forms["myForm"]["img"].value;
     if(y==0){
         alert("Please upload a picture of the waste");
         return false;
-    }
+    }*/
     var z = document.forms["myForm"]["location"].value;
     if(z==""){
       alert("Please enter location");
         return false;
     }
 }
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(Accepted);
-  } else { 
-    var x = document.getElementById("locationNotaccepted");
-    x.innerHTML = " "+"location is not supported by this browser.";
-  }
-}
 
-function Accepted(position) {
-    var y= document.getElementById("locationText");
-    y.innerHTML = " "+ position.coords.latitude + 
-    "  " + position.coords.longitude;
-    var x = document.getElementById("locationAccepted");
-  x.innerHTML = "the location succesfully accepted";
-}
 /**/
+
+
+

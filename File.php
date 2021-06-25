@@ -1,3 +1,36 @@
+<?php
+    include "db.php";
+?>
+
+<?php
+    error_reporting(0);
+    //get data from DB
+    $isedit = isset($_GET["objId"]);
+    if($isedit) $state="edit";
+    else        $state="insert";
+
+    if($isedit){
+        $objId = $_GET["objId"];
+        $query = "SELECT * FROM tbl_events_216 where event_id='" . $objId . "'" ;
+        $result = mysqli_query($connection, $query);
+    }
+
+    if($result) {
+        $row = mysqli_fetch_assoc($result); // there is only 1 item with id=X
+    }
+    else{
+        $objId=0;
+    }
+
+    if($isedit) {
+        $addr = $row['address'];
+    }
+    else {
+        $addr = "";
+    }
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -18,6 +51,11 @@
         <!-- Google Fonts -->
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+
+        <!-- Drag and drop files -->
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/style.css">
@@ -46,16 +84,16 @@
 
                 <!-- Main Navigation -->
                 <nav id="mainNav">
-                    <a href="#" class="selected">
+                    <a href="Opened_List.php">
                         <span class="material-icons">timelapse</span>
                         <p>Open events</p>
                     </a>
-                    <a href="index.html">
-                        <span class="material-icons">home</span>
+                    <a href="index.html" class="selected">
+                        <span class="material-icons" id="home_icon">home</span>
                         <p>Home</p>
                     </a>
-                    <a href="Closed_List.html"> 
-                        <span class="material-icons">assignment_turned_in</span>
+                    <a href="Closed_List.php"> 
+                        <span class="material-icons" id="closed_icon">assignment_turned_in</span>
                         <p>Closed Events</p>
                     </a>
                 </nav>
@@ -64,17 +102,15 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Open Events</li>
+                    <li class="breadcrumb-item active" aria-current="page">Spot Cleaning</li>
                     </ol>
                 </nav>
              
             </div>
 
             <!-- Heading -->
-            <section class="header">
-                <h1>Open Events</h1>
-                <span class="material-icons">filter_alt</span>
-                <span class="material-icons">apps</span>
+            <section class="header" id="mob_h">
+                <h1>Spot Cleaning</h1>
             </section>
 
             <!-- Side Navigation + Hamburger -->
@@ -84,14 +120,14 @@
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><span class="material-icons">menu_open</span></a>
 
                 <ul id="accordion" class="accordion">
-                    <li>
+                    <li id="selected">
                         <a href="index.html" class="link"><i class="fa"><span class="material-icons">home</span></i>Home</a>
                     </li>
-                    <li id="selected">
-                        <a href="#" class="link"><i class="fa"><span class="material-icons">timelapse</span></i>Open Events</a>
+                    <li>
+                        <a href="Opened_List.php" class="link"><i class="fa"><span class="material-icons">timelapse</span></i>Open Events</a>
                     </li>
                     <li>
-                        <a href="Closed_List.html" class="link" id="hasSubmenu"><span class="down"><i class="fa"><span class="material-icons">assignment_turned_in</span></i>Closed Events</span><i class="fa fa-chevron-down"></i></a>
+                        <a href="Closed_List.php" class="link" id="hasSubmenu"><span class="down"><i class="fa"><span class="material-icons">assignment_turned_in</span></i>Closed Events</span><i class="fa fa-chevron-down"></i></a>
                         <ul class="submenu">
                             <li><a href="#"><span class="material-icons">cached</span>Recovered</a></li>
                             <li><a href="#"><span class="material-icons">delete</span>Deleted</a></li>
@@ -107,45 +143,57 @@
             <div id="main">
                 <div class="whiteSpace"></div>
 
-                <a class="list-item" href="#">
-                    <span class="material-icons">timelapse</span>
-                    <section>
-                        <span>Haifa, Ruppin 37</span><br>
-                        <span>Date:</span>
-                    </section>
-                    <section>
-                        <span>11:42 AM</span><br>
-                        <span>08/01/2021</span>
-                    </section>
-                    <span class="material-icons" title="edit">edit</span>
-                </a>
+                <!-- Heading -->
+                <section class="header" id="desk_h">
+                    <h1>Spot Cleaning</h1>
+                </section>
+
+                <form action="File_Accepted.php" name="myForm" method="GET" onsubmit="return check()">
+
+                    <div class="form-group">
+                        <label class="asterisk">*</label>
+                        <label><b>Enter the location</b></label><br>
+                        <input type="text" class="form-control" id="inputAddress" placeholder="Streetname 1, Haifa" name="location" value="<?php echo $addr;?>">
+                    </div>
+
+                    <label class="asterisk">*</label>
+                    <label><b>Please select the type of waste</b></label><br>
+                    <select class="custom-select my-1 mr-sm-2" id="cat" name="waste_type" data-selected="<?php echo $row['waste_type'];?>">
+                        <option value="">Select</option>
+                        <option value="1">Metal</option>
+                        <option value="2">Wood</option>
+                        <option value="3">Plastic</option>
+                        <option value="4">Organic</option>
+                        <option value="5">Glass</option>
+                        <option value="6">Other</option>
+                    </select>
                     
+                    <div class="mob_form">
+                        <label class="asterisk">*</label>
+                        <label><b>Upload a picture of the waste</b></label><br>
+                        <input type="file" id="img" name="img" accept="image/*"><br><br>
+                    </div>
 
-                <a class="list-item" href="#">
-                    <span class="material-icons">timelapse</span>
-                    <section>
-                        <span>Haifa, Ruppin 38</span><br>
-                        <span>Date:</span>
-                    </section>
-                    <section>
-                        <span>10:40 AM</span><br>
-                        <span>08/01/2021</span>
-                    </section>
-                    <span class="disabled"><span class="material-icons" title="no edit">edit</span></span>
-                </a>
+                    <div class="desc_form">
+                        <label class="asterisk">*</label>
+                        <label><b>Upload a picture of the waste</b></label><br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group files">
+                                    <input type="file" name="img" class="form-control" id="img_upload" multiple="" value="<?php echo $row['image_before'];?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                <a class="list-item" href="#">
-                    <span class="material-icons">timelapse</span>
-                    <section>
-                        <span>Haifa, Einstein 99</span><br>
-                        <span>Date:</span>
-                    </section>
-                    <section>
-                        <span>10:38 AM</span><br>
-                        <span>08/01/2021</span>
-                    </section>
-                    <span class="material-icons" title="edit">edit</span>
-                </a>
+                    <input type="hidden" name="event_type" value="1">
+                    <input type="hidden" name="event_status" value="0">
+                    <input type="hidden" name="state" value="<?php echo $state;?>">
+                    <input type="hidden" name="objId" value="<?php echo $objId;?>">
+                    <!-- <input type="hidden" name="create" value="<?php echo $objId;?>"> -->
+
+                    <input type="submit" id="submit" class="btn btn-primary btn-lg">
+                </form>
 
             </div>
 
@@ -157,3 +205,8 @@
         </div>
     </body>
 </html>
+
+<?php
+    //close DB connection
+    mysqli_close($connection);
+?>

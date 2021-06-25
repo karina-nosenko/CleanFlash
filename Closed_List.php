@@ -1,3 +1,28 @@
+<?php
+    include "db.php";
+?>
+
+<?php
+    error_reporting(0);
+    $delete = $_GET["delete"];
+    if($delete) {
+        $query = "DELETE FROM tbl_events_216 WHERE event_id='$delete'";
+        $result = mysqli_query($connection, $query);
+
+        if(!$result) {
+            die("DB query failed.");
+        }
+    }
+
+    // get all data from DB
+    $query = "SELECT * FROM tbl_events_216 WHERE event_status=1 order by date";
+    $result = mysqli_query($connection, $query);
+
+    if(!$result) {
+        die("DB query failed.");
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -46,16 +71,16 @@
 
                 <!-- Main Navigation -->
                 <nav id="mainNav">
-                    <a href="Opened_List.html">
+                    <a href="Opened_List.php">
                         <span class="material-icons">timelapse</span>
                         <p>Open events</p>
                     </a>
-                    <a href="index.html" class="selected">
-                        <span class="material-icons">home</span>
+                    <a href="index.html">
+                        <span class="material-icons" id="home_icon">home</span>
                         <p>Home</p>
                     </a>
-                    <a href="Closed_List.html"> 
-                        <span class="material-icons">assignment_turned_in</span>
+                    <a href="#" class="selected"> 
+                        <span class="material-icons" id="closed_icon">assignment_turned_in</span>
                         <p>Closed Events</p>
                     </a>
                 </nav>
@@ -64,15 +89,17 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Spot Cleaning</li>
+                    <li class="breadcrumb-item active" aria-current="page">Closed Events</li>
                     </ol>
                 </nav>
              
             </div>
 
             <!-- Heading -->
-            <section class="header">
-                <h1>Spot Cleaning</h1>
+            <section class="header" id="mob_h">
+                <h1>Closed Events</h1>
+                <span class="material-icons">filter_alt</span>
+                <span class="material-icons">apps</span>
             </section>
 
             <!-- Side Navigation + Hamburger -->
@@ -82,14 +109,14 @@
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><span class="material-icons">menu_open</span></a>
 
                 <ul id="accordion" class="accordion">
-                    <li id="selected">
+                    <li>
                         <a href="index.html" class="link"><i class="fa"><span class="material-icons">home</span></i>Home</a>
                     </li>
                     <li>
-                        <a href="Opened_List.html" class="link"><i class="fa"><span class="material-icons">timelapse</span></i>Open Events</a>
+                        <a href="Opened_List.php" class="link"><i class="fa"><span class="material-icons">timelapse</span></i>Open Events</a>
                     </li>
-                    <li>
-                        <a href="Closed_List.html" class="link" id="hasSubmenu"><span class="down"><i class="fa"><span class="material-icons">assignment_turned_in</span></i>Closed Events</span><i class="fa fa-chevron-down"></i></a>
+                    <li id="selected">
+                        <a href="#" class="link" id="hasSubmenu"><span class="down"><i class="fa"><span class="material-icons">assignment_turned_in</span></i>Closed Events</span><i class="fa fa-chevron-down"></i></a>
                         <ul class="submenu">
                             <li><a href="#"><span class="material-icons">cached</span>Recovered</a></li>
                             <li><a href="#"><span class="material-icons">delete</span>Deleted</a></li>
@@ -105,38 +132,33 @@
             <div id="main">
                 <div class="whiteSpace"></div>
 
-                <form action="File_Accepted.php" name="myForm" method="GET" onsubmit="return check()">
-                    <label class="asterisk">*</label>
-                    <label><b>Click the button to get your coordinates <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                <path
-                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                            </svg></b></label><br>
-                    <textarea name="location" id="locationText" onclick="getLocation()" placeholder="        Enter the location"
-                        class="search-input-1"></textarea>
-                    <br>
-                    <p id="locationAccepted"></p>
-                    <p id="locationNotaccepted"></p>
-                    <br>
-                    <label class="asterisk">*</label>
-                    <label><b>Please select the type of waste</b></label><br>
-                    <select name="age" id="age" required class="combo-box-1">
-                        <option value="">Select</option>
-                        <option value="Metal">Metal</option>
-                        <option value="Wood">Wood</option>
-                        <option value="Plastic">Plastic</option>
-                        <option value="Organic">Organic</option>
-                        <option value="Glass">Glass</option>
-                        <option value="Other">Other</option>
-                    </select>
-                    <br><br>
-                    <label class="asterisk">*</label>
-                    <label><b>Please attach a picture of the waste</b></label><br>
-                    <input type="file" id="img" name="img" accept="image/*"><br><br>
-                    <input type="submit" id="submit" class="btn btn-primary btn-lg">
-                </form>
+                <!-- Heading -->
+                <section class="header" id="desk_h">
+                    <h1>Closed Events</h1>
+                    <span class="material-icons">filter_alt</span>
+                    <span class="material-icons">apps</span>
+                </section>
 
+                <?php
+                    while($row = mysqli_fetch_assoc($result)) {
+                        //output data from each row
+                        echo '<a href="Closed_Object.php?objId=' . $row["event_id"] . '" class="list-item">';
+                        echo '<span class="material-icons">assignment_turned_in</span><section>';
+                        echo '<span>' . $row["address"] . '</span><br>';
+                        echo '<span>Date:</span>';
+                        echo '</section><section>';
+                        echo '<span>' . $row["start_time"] . '</span><br>';
+                        echo '<span>' . $row["date"] . '</span></section>';
+                        echo '<span class="material-icons-outlined" title="Event Type:' . $row["event_type"] . '">info</span>';
+                        echo '</a>';
+                    }
+                ?>
             </div>
+
+            <?php
+                //release returned data
+                mysqli_free_result($result);
+            ?>
 
             <!-- Footer -->
             <footer>
@@ -146,3 +168,8 @@
         </div>
     </body>
 </html>
+
+<?php
+    //close DB connection
+    mysqli_close($connection);
+?>

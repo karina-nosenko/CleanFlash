@@ -6,6 +6,7 @@ header, main, nav, aside, footer {
     display: block;
 }
 
+
 #global {
     position: fixed;
     top: 0;
@@ -53,7 +54,7 @@ header {
     display: block;
 }
 
-.form-control{
+header .form-control{
     display: none;
 
     width: 200px;
@@ -99,17 +100,17 @@ header {
     z-index: 5; 
     top: 100px; 
     left: 0;
-    background-color: #555555;
+    background-color: #f5f5f5;
     overflow-x: hidden; 
     padding-top: 15px;
     transition: 0.5s;
 }
 
 .sidenav a {
-    padding: 50px 8px 0 10px;
+    /* padding: 50px 8px 0 10px; */
     text-decoration: none;
     font-size: 18px;
-    color: #ffffff;
+    color: #000;
     display: block;
     transition: 0.3s;
     white-space: nowrap;
@@ -122,7 +123,6 @@ header {
 .sidenav a span {
     margin-right: 10px;
     position: relative;
-    top: 5px;
 }
 
 .sidenav .closebtn {
@@ -145,7 +145,7 @@ header {
     width: 100%;
     max-width: 384px;
     margin: 30px auto 20px;
-    background: #555555;
+    background: #f5f5f5;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 0px
@@ -155,7 +155,7 @@ header {
     cursor: pointer;
     display: block;
     padding: 15px 15px 15px 42px;
-    color: #fff;
+    color: #000;
     font-size: 16px;
     font-weight: 700;
     border-bottom: 1px solid #CCC;
@@ -168,7 +168,7 @@ header {
 }
 
 .accordion li:last-child .link {
-    border-bottom: 0
+    border-bottom: 0;
 }
 
 .accordion li i {
@@ -188,7 +188,9 @@ header {
 
 .accordion li i.fa-chevron-down {
     right: 12px;
+    top: 19px;
     left: auto;
+    right: 13px;
     font-size: 16px;
 }
 
@@ -204,11 +206,11 @@ header {
 }
 
 .accordion li.open .link {
-    color: #fff
+    color: #000;
 }
 
 .accordion li.open i {
-    color: #fff;
+    color: #000;
 }
 
 .accordion li.open i.fa-chevron-down {
@@ -220,20 +222,19 @@ header {
 
 .submenu {
     display: none;
-    background: #ccc;
+    background: #fff;
     font-size: 14px
 }
 
 .submenu li {
-    border-bottom: 1px solid #4b4a5e
+    border-bottom: 1px solid #ccc;
 }
 
 .submenu a {
     display: block;
     text-decoration: none;
     color: #000;
-    padding: 12px;
-    padding-left: 42px;
+    padding: 6px 15px 15px 42px;
     -webkit-transition: all 0.25s ease;
     -o-transition: all 0.25s ease;
     transition: all 0.25s ease
@@ -245,12 +246,17 @@ header {
 }
 
 .accordion .fa {
-    color: #fff;
+    color: #000;
 }
 
 .accordion .fa .material-icons {
     position: relative;
-    bottom: 4px;
+    bottom: 3px;
+}
+
+.submenu span.material-icons {
+    position: relative;
+    top: 4px;
 }
 
 .accordion #selected .link{
@@ -266,7 +272,7 @@ header {
 #mainNav{
     height: 60px;
     width: 100%;
-    background: #777777;
+    background: rgb(134, 134, 134);
     filter: drop-shadow(0px -2px 4px rgba(0, 0, 0, 0.25));
 
     position: fixed;
@@ -279,7 +285,7 @@ header {
   width: 120px;
   height: 60px;
   text-align: center;
-  padding: 1px 1px;
+  padding: 10px;
   color: #C8C8C8;
   font-size: 16px;
   font-weight: bold;
@@ -297,22 +303,28 @@ header {
   color: black;
   
 }
-#mainNav p{
-  width: 103px;
-  height: 22px;
-  margin: auto;
+
+#home_icon {
+    position: relative;
+    top: 2px;
 }
-#mainNav .material-icons{
-  margin-top: 12px;
+
+#closed_icon {
+    position: relative;
+    top: 1px;
 }
+
+#mainNav p {
+    white-space: nowrap;
+}
+
 
 /* Breadcrumbs */
-
 .breadcrumb{
   visibility: hidden;
   height: 40px;
   font-size: 14px;
-  background-color: #f5f5f5;
+  background-color: #fff;
   left: 180px;
   top: 160px;
   border-radius: 0;
@@ -328,8 +340,6 @@ header {
 .header{
     width: 100%;
     height: 50px;     
-    position: absolute;
-    bottom: 0;
     background-color: #ffffff;
     position: fixed;
     top: 99px;
@@ -357,6 +367,18 @@ header {
     margin-top: 11px;
 }
 
+div.modal-header {
+    display: block;
+}
+
+span.material-icons:hover {
+    cursor: pointer;
+}
+
+#desk_h {
+    display: none;
+}
+
 /* Footer */
 
 footer {
@@ -381,6 +403,10 @@ footer p{
 
 /************* Events List *************/
 
+#main .cont {
+    position: relative;
+}
+
 #main .list-item{
     width: 100%;
     height: 60px;
@@ -393,6 +419,23 @@ footer p{
     align-items: center;
 
     border-bottom: 2px solid #D6D6D6;
+}
+
+#main .list-item span.material-icons.update {
+    visibility: hidden;
+} 
+
+span.material-icons.edit {
+    position: absolute;
+    right: 56px;
+    top: 15px;
+    border-radius: 100px;
+    padding:3px;
+}
+
+span.material-icons.edit:hover {
+    cursor: pointer;
+    background-color:#D6D6D6;
 }
 
 #main .list-item:hover{
@@ -410,6 +453,15 @@ footer p{
 
 #main .list-item .disabled {
     color: #ccc;
+}
+
+#main iframe {
+    margin-top: 20px;
+}
+
+#main iframe + p{
+    margin-top: 10px;
+    color: green;
 }
 
 /************* Closed Object *************/
@@ -545,41 +597,185 @@ footer p{
 .asterisk{
     color: red;
 }
-#locationAccepted{
-    color: green;
+
+.files input {
+    outline: 2px dashed #92b0b3;
+    outline-offset: -10px;
+    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    padding: 120px 0px 85px 35%;
+    text-align: center !important;
+    margin: 0;
+    width: 100% !important;
 }
-#locationNotaccepted{
-    color: red;
-}
-.combo-box-1 {  /*type of waste*/
-	width: 180px;
-	height: 32px;
-	padding: 4px 8px 4px 8px;
-	background: #ebebeb;
-	color: #232323;
-	border-color: #232323;
-	border-width: 1px;
-	border-style: solid;
-	font-family: "Helvetica";
-	font-weight: 400;
-	font-size: 14px;
-	text-align: left;
-}
-.search-input-1 {   /*location*/
-	width: 180px;
-	height: 32px;
-	background: #ffffff;
-	color: #c0c0c0;
-	border-color: #232323;
-	border-width: 1px;
-	border-style: solid;
-	border-radius: 16px 16px 16px 16px;
-	font-family: "Helvetica";
-	font-weight: 400;
-	font-size: 14px;
-	text-align: left;
+.files input:focus{     outline: 2px dashed #92b0b3;  outline-offset: -10px;
+    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    transition: outline-offset .15s ease-in-out, background-color .15s linear; border:1px solid #92b0b3;
+ }
+
+.files{ position:relative}
+
+.files:after {  
+    pointer-events: none;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 50px;
+    right: 0;
+    height: 56px;
+    content: "";
+    background-image: url(https://image.flaticon.com/icons/png/128/109/109612.png);
+    display: block;
+    margin: 0 auto;
+    background-size: 100%;
+    background-repeat: no-repeat;
 }
 
+.color input{ background-color:#f1f1f1;}
+
+.files:before {
+    position: absolute;
+    bottom: 10px;
+    left: 0;  
+    pointer-events: none;
+    width: 100%;
+    right: 0;
+    height: 57px;
+    display: block;
+    margin: 0 auto;
+    color: #2ea591;
+    font-weight: 600;
+    text-transform: capitalize;
+    text-align: center;
+}
+
+.form-control {
+    margin: 0;
+}
+ 
+.col-md-6 {
+    width: 839px;
+}
+
+input#inputAddress.form-control, select#inlineFormCustomSelectPref.custom-select.my-1.mr-sm-2 {
+    width: 392px;
+    margin-bottom: 25px;
+}
+
+.desc_form, .mob_form {
+    display: none;
+    margin-bottom: 25px;
+    margin-top: 25px;
+}
+
+input #submit {
+    margin-bottom: 25px;
+}
+
+/************* Event type form *************/
+
+.tiles {
+    display:block; 
+    margin:0 0 130px 0; 
+    overflow:hidden;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+    z-index: -1;
+}
+
+.tiles .button {
+    color:#fff; 
+    display:block; 
+    font-weight:bold; 
+    overflow:hidden; 
+    padding:20px 10px; 
+    text-align:center; 
+    margin-bottom: 10px;
+}
+
+/* .tiles .button.blue, .tiles .button.orange {
+    background:#62c462;
+} */
+
+.panel {
+    background-color:#fff; 
+    border:none; 
+    border-radius:0; 
+    -webkit-box-shadow:none; 
+    box-shadow:none;
+    width: 100%;
+    margin: 0 auto 20px auto;
+    position: relative;
+    z-index: -1;
+}
+
+.panel-group .panel {
+    margin-bottom:0; 
+    border-radius:0;
+}
+
+.panel-group .panel+.panel 	{
+    margin-top:0;
+}
+
+.panel-default {
+    border:none;
+}
+
+.panel-heading {
+    padding:20px 15px; 
+    border:none; 
+    border-radius:0; 
+    width: auto;
+}
+
+.panel-default>.panel-heading {
+    position: relative; 
+    color:#333; 
+    background:none; 
+    border-top:1px solid #ddd;
+}
+
+.panel-default>.panel-heading+.panel-collapse>.panel-body {
+    border:none;
+}
+
+.panel-heading .accordion-toggle:after {
+    font-family:'Glyphicons Halflings'; 
+    float:right; 
+    color:grey;
+}
+
+#accordion.panel-group p {
+    font-size: 16px;
+}
+
+h4.panel-title {
+    font-size:20px;
+}
+
+i.fas.fa-angle-right::before {
+    position: absolute;
+    right: 17px;
+    top: 23px;
+}
+
+i.fas.fa-angle-down::before {
+    position: absolute;
+    right: 17px;
+    top: 23px;
+    display: none;
+}
+
+/***/
+
+a#return.btn.btn-primary.btn-lg {
+    margin-top: 30px;
+    font-size: 15px;
+}
 
 /************* Desktop properties *************/
  @media only screen and (min-width: 536px){
@@ -594,7 +790,7 @@ footer p{
         display: none;
     }
 
-    .form-control{
+    header .form-control{
         display: block;
     }
 
@@ -638,7 +834,16 @@ footer p{
 
     .header span {
         position: fixed;
-        top: 157px;
+        top: 210px;
+        right: 5px;
+    }
+
+    #mob_h {
+        display: none;
+    }
+
+    #desk_h {
+        display: block;
     }
 
     .breadcrumb{
@@ -683,4 +888,33 @@ footer p{
     .frequently{
         margin-left: 37%;
     }
+
+    /* Event type */
+    .tiles {
+        display:flex;
+    }
+
+    .container {
+        font-family:Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif; 
+        font-size:18px; 
+        margin:0 auto;
+        width:1024px;
+    }
  }
+
+ /************* Change the appearance of the upload file input *************/
+@media only screen and (min-width: 840px){
+
+    /* Form */
+    .desc_form {
+        display: block;
+    }
+
+    .mob_form {
+        display: none;
+    }
+}
+
+
+
+ 

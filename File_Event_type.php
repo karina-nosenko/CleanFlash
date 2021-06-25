@@ -18,6 +18,9 @@
         <!-- Google Fonts -->
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+        
+        <!-- Font Awesome icons -->
+        <script src="https://kit.fontawesome.com/4affd58aad.js" crossorigin="anonymous"></script>
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/style.css">
@@ -46,16 +49,16 @@
 
                 <!-- Main Navigation -->
                 <nav id="mainNav">
-                    <a href="Opened_List.html">
+                    <a href="Opened_List.php">
                         <span class="material-icons">timelapse</span>
                         <p>Open events</p>
                     </a>
-                    <a href="index.html">
-                        <span class="material-icons">home</span>
+                    <a href="index.html" class="selected">
+                        <span class="material-icons" id="home_icon">home</span>
                         <p>Home</p>
                     </a>
-                    <a href="#" class="selected"> 
-                        <span class="material-icons">assignment_turned_in</span>
+                    <a href="Closed_List.php"> 
+                        <span class="material-icons" id="closed_icon">assignment_turned_in</span>
                         <p>Closed Events</p>
                     </a>
                 </nav>
@@ -64,17 +67,15 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item"><a href="Closed_List.html">Closed Events</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Haifa, Hayezira 18</li>
+                    <li class="breadcrumb-item active" aria-current="page">Select Event Type</li>
                     </ol>
                 </nav>
              
             </div>
 
             <!-- Heading -->
-            <section class="header">
-                <h1>Haifa, Hayezira 18</h1>
-                <span class="material-icons">delete</span>
+            <section class="header" id="mob_h">
+                <h1>Select Event Type</h1>
             </section>
 
             <!-- Side Navigation + Hamburger -->
@@ -84,14 +85,14 @@
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><span class="material-icons">menu_open</span></a>
 
                 <ul id="accordion" class="accordion">
-                    <li>
+                    <li id="selected">
                         <a href="index.html" class="link"><i class="fa"><span class="material-icons">home</span></i>Home</a>
                     </li>
                     <li>
-                        <a href="Opened_List.html" class="link"><i class="fa"><span class="material-icons">timelapse</span></i>Open Events</a>
+                        <a href="Opened_List.php" class="link"><i class="fa"><span class="material-icons">timelapse</span></i>Open Events</a>
                     </li>
-                    <li id="selected">
-                        <a href="Closed_List.html" class="link" id="hasSubmenu"><span class="down"><i class="fa"><span class="material-icons">assignment_turned_in</span></i>Closed Events</span><i class="fa fa-chevron-down"></i></a>
+                    <li>
+                        <a href="Closed_List.php" class="link" id="hasSubmenu"><span class="down"><i class="fa"><span class="material-icons">assignment_turned_in</span></i>Closed Events</span><i class="fa fa-chevron-down"></i></a>
                         <ul class="submenu">
                             <li><a href="#"><span class="material-icons">cached</span>Recovered</a></li>
                             <li><a href="#"><span class="material-icons">delete</span>Deleted</a></li>
@@ -107,28 +108,62 @@
             <div id="main">
                 <div class="whiteSpace"></div>
 
-                <div class="sub_container1">
-                    <p><b>Finish time: </b> 11:07 AM </p>
-                    <p><b>Event type: </b> Area Cleaning </p>
-                    <p><b>Date: </b> 12/11/2020 </p>
-                    <p><b>Start time: </b> 10:45 AM </p>
-                    <p><b>Finish time: </b>11:07 AM </p>
-                    <p><b>Treatment time: </b><span class="ArrivedOnTime">Arrived on time</span></p>
-                    <button type="button" class="btn btn-secondary"><svg xmlns="http://www.w3.org/2000/svg"
-                            width="13" height="13" fill="currentColor" class="bi bi-bootstrap-reboot"
-                            viewBox="0 0 16 16">
-                            <path
-                                d="M1.161 8a6.84 6.84 0 1 0 6.842-6.84.58.58 0 1 1 0-1.16 8 8 0 1 1-6.556 3.412l-.663-.577a.58.58 0 0 1 .227-.997l2.52-.69a.58.58 0 0 1 .728.633l-.332 2.592a.58.58 0 0 1-.956.364l-.643-.56A6.812 6.812 0 0 0 1.16 8z" />
-                            <path
-                                d="M6.641 11.671V8.843h1.57l1.498 2.828h1.314L9.377 8.665c.897-.3 1.427-1.106 1.427-2.1 0-1.37-.943-2.246-2.456-2.246H5.5v7.352h1.141zm0-3.75V5.277h1.57c.881 0 1.416.499 1.416 1.32 0 .84-.504 1.324-1.386 1.324h-1.6z" />
-                        </svg> Recover Event</button><br><br>
-                </div>
-                <div class="sub_container2">
-                    <p>Before <span class="After_span">After</span></p>
-                    <img src="images/Image_1.png" class="Image_before" alt="before" title="before">
-                    <img src="images/Image_2.png" class="Image_after" alt="after" title="after">
-                </div>
+                <!-- Heading -->
+                <section class="header" id="desk_h">
+                    <h1>Select Event Type</h1>
+                </section>
 
+
+                    <div class="tiles">
+                    	<div  class="col-xs-4 col-md-4">
+                            <a class="btn btn-primary btn-lg" class="event_type" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                Call To Bin
+                            </a>
+                        </div>
+                        <div  class="col-xs-4 col-md-4">
+                            <a class="btn btn-primary btn-lg" class="event_type" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Spot Cleaning
+                            </a>
+                        </div>
+                    </div>
+                    <div class="container">
+                    <div class="panel-group" id="accordion">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                        Call To Bin<i class="fas fa-angle-right"></i><i class="fas fa-angle-down"></i>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <p>Choose <b>Call To Bin</b> if you have some litter, but there's no trash bin in the area.<br>
+                                        You'll need to enter your location, and the Autorobot will arrive as soon as possible.<br>
+                                        It will open its own trash can on the entered location.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                        Spot Cleaning<i class="fas fa-angle-right"></i><i class="fas fa-angle-down"></i>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <p>Choose <b>Spot Cleaning</b> if you see some litter thrown on the street.<br>
+                                        You'll need to enter the location of the litter, and upload the litter photo.<br>
+                                        The Autorobot will clean it and upload an image of the cleaned area!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
             </div>
 
             <!-- Footer -->

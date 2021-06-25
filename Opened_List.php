@@ -1,3 +1,29 @@
+<?php
+    include "db.php";
+?>
+
+<?php
+    error_reporting(0);
+    $delete = $_GET["delete"];
+    // $create = $_GET["create"];
+    if($delete) {
+        $query = "DELETE FROM tbl_events_216 WHERE event_id='$delete'";
+        $result = mysqli_query($connection, $query);
+
+        if(!$result) {
+            die("DB query failed.");
+        }
+    } 
+
+    // get all data from DB
+    $query = "SELECT * FROM tbl_events_216 WHERE event_status=0 order by date";
+    $result = mysqli_query($connection, $query);
+
+    if(!$result) {
+        die("DB query failed.");
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -46,16 +72,16 @@
 
                 <!-- Main Navigation -->
                 <nav id="mainNav">
-                    <a href="Opened_List.html">
+                    <a href="#" class="selected">
                         <span class="material-icons">timelapse</span>
                         <p>Open events</p>
                     </a>
                     <a href="index.html">
-                        <span class="material-icons">home</span>
+                        <span class="material-icons" id="home_icon">home</span>
                         <p>Home</p>
                     </a>
-                    <a href="#" class="selected"> 
-                        <span class="material-icons">assignment_turned_in</span>
+                    <a href="Closed_List.php"> 
+                        <span class="material-icons" id="closed_icon">assignment_turned_in</span>
                         <p>Closed Events</p>
                     </a>
                 </nav>
@@ -64,15 +90,15 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Closed Events</li>
+                    <li class="breadcrumb-item active" aria-current="page">Open Events</li>
                     </ol>
                 </nav>
              
             </div>
 
             <!-- Heading -->
-            <section class="header">
-                <h1>Closed Events</h1>
+            <section class="header" id="mob_h">
+                <h1>Open Events</h1>
                 <span class="material-icons">filter_alt</span>
                 <span class="material-icons">apps</span>
             </section>
@@ -87,11 +113,11 @@
                     <li>
                         <a href="index.html" class="link"><i class="fa"><span class="material-icons">home</span></i>Home</a>
                     </li>
-                    <li>
-                        <a href="Opened_List.html" class="link"><i class="fa"><span class="material-icons">timelapse</span></i>Open Events</a>
-                    </li>
                     <li id="selected">
-                        <a href="#" class="link" id="hasSubmenu"><span class="down"><i class="fa"><span class="material-icons">assignment_turned_in</span></i>Closed Events</span><i class="fa fa-chevron-down"></i></a>
+                        <a href="#" class="link"><i class="fa"><span class="material-icons">timelapse</span></i>Open Events</a>
+                    </li>
+                    <li>
+                        <a href="Closed_List.php" class="link" id="hasSubmenu"><span class="down"><i class="fa"><span class="material-icons">assignment_turned_in</span></i>Closed Events</span><i class="fa fa-chevron-down"></i></a>
                         <ul class="submenu">
                             <li><a href="#"><span class="material-icons">cached</span>Recovered</a></li>
                             <li><a href="#"><span class="material-icons">delete</span>Deleted</a></li>
@@ -107,99 +133,36 @@
             <div id="main">
                 <div class="whiteSpace"></div>
 
-                <a class="list-item" href="Closed_Object.html?objId=1">
-                    <span class="material-icons">assignment_turned_in</span>
-                    <section>
-                        <span>Haifa, Hayezira 18</span><br>
-                        <span>Date:</span>
-                    </section>
-                    <section>
-                        <span>10:45 AM</span><br>
-                        <span>12/11/2020</span>
-                    </section>
-                    <span class="material-icons-outlined" title="Event Type: Area Cleaning">info</span>
-                </a>
-                    
+                <!-- Heading -->
+                <section class="header" id="desk_h">
+                    <h1>Open Events</h1>
+                    <span class="material-icons">filter_alt</span>
+                    <span class="material-icons">apps</span>
+                </section>
 
-                <a class="list-item" href="Closed_Object.html?objId=2">
-                    <span class="material-icons">assignment_turned_in</span>
-                    <section>
-                        <span>Haifa, Hayezira 18</span><br>
-                        <span>Date:</span>
-                    </section>
-                    <section>
-                        <span>10:30 AM</span><br>
-                        <span>12/11/2020</span>
-                    </section>
-                    <span class="material-icons-outlined" title="Event Type: Area Cleaning">info</span>
-                </a>
-
-                <a class="list-item" href="Closed_Object.html?objId=3">
-                    <span class="material-icons">assignment_turned_in</span>
-                    <section>
-                        <span>Haifa, Einstein 100</span><br>
-                        <span>Date:</span>
-                    </section>
-                    <section>
-                        <span>1:18 AM</span><br>
-                        <span>20/09/2020</span>
-                    </section>
-                    <span class="material-icons-outlined" title="Event Type: Spot Cleaning">info</span>
-                </a>
-
-                <a class="list-item" href="Closed_Object.html?objId=4">
-                    <span class="material-icons">assignment_turned_in</span>
-                    <section>
-                        <span>Haifa, Tel Aviv 1</span><br>
-                        <span>Date:</span>
-                    </section>
-                    <section>
-                        <span>6:59 AM</span><br>
-                        <span>27/02/2020</span>
-                    </section>
-                    <span class="material-icons-outlined" title="Event Type: Spot Cleaning">info</span>
-                </a>
-
-                <a class="list-item" href="Closed_Object.html?objId=5">
-                    <span class="material-icons">assignment_turned_in</span>
-                    <section>
-                        <span>Haifa, Hahashmal 36</span><br>
-                        <span>Date:</span>
-                    </section>
-                    <section>
-                        <span>11:41 AM</span><br>
-                        <span>19/01/2020</span>
-                    </section>
-                    <span class="material-icons-outlined" title="Event Type: Call to Bin">info</span>
-                </a>
-
-                <a class="list-item" href="Closed_Object.html?objId=6">
-                    <span class="material-icons">assignment_turned_in</span>
-                    <section>
-                        <span>Haifa, Eilat 15</span><br>
-                        <span>Date:</span>
-                    </section>
-                    <section>
-                        <span>12:16 AM</span><br>
-                        <span>29/11/2020</span>
-                    </section>
-                    <span class="material-icons-outlined" title="Event Type: Area Cleaning">info</span>
-                </a>
-
-                <a class="list-item" href="Closed_Object.html?objId=7">
-                    <span class="material-icons">assignment_turned_in</span>
-                    <section>
-                        <span>Haifa, Eilat 15</span><br>
-                        <span>Date:</span>
-                    </section>
-                    <section>
-                        <span>12:16 AM</span><br>
-                        <span>29/11/2019</span>
-                    </section>
-                    <span class="material-icons-outlined" title="Event Type: Call to Bin">info</span>
-                </a>
-
+                <?php
+                    while($row = mysqli_fetch_assoc($result)) {
+                        //output data from each row
+                        echo '<div class="cont">';
+                        echo '<a href="Opened_Object.php?objId=' . $row["event_id"] . '" class="list-item opened">';
+                        echo '<span class="material-icons">timelapse</span><section>';
+                        echo '<span>' . $row["address"] . '</span><br>';
+                        echo '<span>Date:</span>';
+                        echo '</section><section>';
+                        echo '<span>' . $row["start_time"] . '</span><br>';
+                        echo '<span>' . $row["date"] . '</span></section>';
+                        echo '<span class="material-icons update">edit</span>';
+                        echo '</a>';
+                        echo '<span onclick="redirectIt(this)" href="File.php?objId=' . $row["event_id"] . '" class="material-icons edit" title="edit">edit</span>';
+                        echo '</div>';
+                    }
+                ?>
             </div>
+
+            <?php
+                //release returned data
+                mysqli_free_result($result);
+            ?>
 
             <!-- Footer -->
             <footer>
@@ -209,3 +172,8 @@
         </div>
     </body>
 </html>
+
+<?php
+    //close DB connection
+    mysqli_close($connection);
+?>
