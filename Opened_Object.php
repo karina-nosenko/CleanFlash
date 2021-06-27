@@ -12,6 +12,12 @@
         $row = mysqli_fetch_assoc($result);
     }
     else die("DB query failed.");
+
+    $query = "UPDATE tbl_events_216 SET arrival_time=addtime(start_time,15) WHERE event_id=" . $objId;
+    $update = mysqli_query($connection, $query);
+    if(!$update) {
+        die("DB query failed.");
+    } 
 ?>
 
 <!DOCTYPE html>
@@ -101,7 +107,7 @@
                 <?php
                     echo '<h1>' . $row["address"] . '</h1>';
                 ?>
-                <span class="material-icons" data-toggle="modal" data-target="#note_msg" class="deletion_icon">delete</span>
+                <span class="material-icons" title="Delete this event" data-toggle="modal" data-target="#note_msg" class="deletion_icon">delete</span>
             </section>
 
             <!-- Side Navigation + Hamburger -->
@@ -139,7 +145,7 @@
                     <?php
                         echo '<h1>' . $row["address"] . '</h1>';
                     ?>
-                    <span class="material-icons" data-toggle="modal" data-target="#note_msg" class="deletion_icon">delete</span>
+                    <span class="material-icons" title="Delete this event" data-toggle="modal" data-target="#note_msg" class="deletion_icon">delete</span>
                 </section>
 
                 <!-- Confirmation before deletion -->
@@ -169,10 +175,10 @@
                         $img = $row["image_before"];
                         if(!$img) $img = "images/Image_1.png";
 
-                        echo '<p><b>Event type: </b>' . $row["event_type"] . '</p>';
+                        echo '<p><b>Event type: </b><span class="TypeOfEvent">' . $row["event_type"] . '</span></p>';
                         echo '<p><b>Date: </b>' . $row["date"] . '</p>';
                         echo '<p><b>Start time: </b>' . $row["start_time"] . '</p>';
-                        echo '<p><b>Treatment time: </b><span class="ArrivedOnTime">' . $row["arrival_status"] . '</span></p>';
+                        echo '<p><b>Estimated arrival time: </b><span class="ArrivedOnTime">' . $row["arrival_time"] . '</span></p>';
                     ?>
 
                 </div>

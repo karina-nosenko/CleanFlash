@@ -33,7 +33,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
         <!-- JQuery -->
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
         
         <!-- Google Fonts -->
         <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -42,6 +42,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/style.css">
         <script src="js/scripts.js"></script>
+        <script src="data/db.json"></script>
         <link rel="icon" href="favicon.ico">
 
         <title>CleanFlash</title>
@@ -100,7 +101,7 @@
                 <?php
                     echo '<h1>' . $row["address"] . '</h1>';
                 ?>
-                <span class="material-icons" data-toggle="modal" data-target="#note_msg" class="deletion_icon">delete</span>
+                <span class="material-icons" title="Delete this event" data-toggle="modal" data-target="#note_msg" class="deletion_icon">delete</span>
             </section>
 
             <!-- Side Navigation + Hamburger -->
@@ -138,7 +139,7 @@
                     <?php
                         echo '<h1>' . $row["address"] . '</h1>';
                     ?>
-                    <span class="material-icons" data-toggle="modal" data-target="#note_msg" class="deletion_icon">delete</span>
+                    <span class="material-icons" title="Delete this event" data-toggle="modal" data-target="#note_msg" class="deletion_icon">delete</span>
                 </section>
 
                 <!-- Confirmation before deletion -->
@@ -170,14 +171,14 @@
                         if(!$img_1) $img = "images/Image_1.png";
                         if(!$img_2) $img = "images/Image_2.png";
 
-                        echo '<p><b>Event type: </b>' . $row["event_type"] . '</p>';
+                        echo '<p><b>Event type: </b><span class="TypeOfEvent">' . $row["event_type"] . '</span></p>';
                         echo '<p><b>Date: </b>' . $row["date"] . '</p>';
                         echo '<p><b>Start time: </b>' . $row["start_time"] . '</p>';
                         echo '<p><b>Finish time: </b>' . $row["finish_time"] . '</p>';
                         echo '<p><b>Treatment time: </b><span class="ArrivedOnTime">' . $row["arrival_status"] . '</span></p>';
                     ?>
 
-                    <button type="button" class="btn btn-secondary"><svg xmlns="http://www.w3.org/2000/svg"
+                    <button type="button" title="Reopen the current event" class="btn btn-secondary"><svg xmlns="http://www.w3.org/2000/svg"
                             width="13" height="13" fill="currentColor" class="bi bi-bootstrap-reboot"
                             viewBox="0 0 16 16">
                             <path

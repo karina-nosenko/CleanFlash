@@ -1,3 +1,17 @@
+$(document).ready(function(){
+  var arrivalStatus =  $(".ArrivedOnTime").html();
+  var eventType = $(".TypeOfEvent").html();
+
+  $.getJSON("data/db.json",function(data){
+      $(".ArrivedOnTime").html(data.arrival[0][arrivalStatus]);
+  });
+  $.getJSON("data/db.json",function(data){
+    $(".TypeOfEvent").html(data.event_type[0][eventType]);
+});
+});
+
+
+
 /* Make the "select" input selected when updating */
 $(document).ready(function() {
 

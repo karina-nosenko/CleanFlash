@@ -1,0 +1,17 @@
+{
+  "arrival": [
+     {
+       "0": "Arrival on time" ,
+       "1": "Arrival a little late" ,
+       "2": "Arrival late" ,
+       "3": "Could not reach the location"
+     }
+  ],
+  "event_type": [
+    {
+      "0": "Spot Cleaning",
+      "1": "Area Cleaning",
+      "3": "Call To Bin"
+    }
+  ]
+}
