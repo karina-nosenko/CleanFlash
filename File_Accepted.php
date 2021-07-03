@@ -1,5 +1,11 @@
 <?php
     include "db.php";
+    include "config.php";
+    session_start();
+
+    if(!isset($_SESSION["user_email"])){
+        header('Location: ' . URL . 'index.php');
+    }
 ?>
 
 <?php 
@@ -11,20 +17,73 @@
     $event_status   = mysqli_real_escape_string($connection, $_GET['event_status']);
 	$state    	    = $_GET['state'];
 	$objId    	    = $_GET['objId'];
+    $email          = $_SESSION["user_email"];
 
-    //SET: insert/update data in DB
-	if ($state == "insert") {
-		$query = "INSERT INTO tbl_events_216(address,event_type,waste_type,image_before,event_status, start_time, date) 
-                    VALUES ('$location','$event_type','$waste_type','$image_before','$event_status', current_timestamp , current_date)";
-	}
-    else{
-        $query = "UPDATE tbl_events_216 SET address='$location',event_type='$event_type',waste_type='$waste_type',image_before='$image_before',event_status='$event_status', start_time=current_timestamp, date=current_date WHERE event_id='$objId'";
+    //Check if the event was opened by another user
+    $checkQuery = "SELECT * FROM tbl_events_216 WHERE address = '$location' and event_status=0";  
+    $check = mysqli_query($connection, $checkQuery);
+    if(!$check){
+        die("DB query1 failed.");
     }
 
-    $result = mysqli_query($connection, $query);
+    $sharedEvent =  mysqli_fetch_assoc($check);
+    $alreadyOpened = 0;
 
-    if(!$result){
-        die("DB query failed.");
+    if($sharedEvent) {  //if the event already exists
+        //check if the event was created by the current user
+        $checkQuery = "SELECT * FROM tbl_users_events_216 ue INNER JOIN tbl_events_216 USING (event_id) 
+                        WHERE ue.event_id = " . $sharedEvent["event_id"] . " and
+                        ue.email = '" . $_SESSION["user_email"] . "'";
+        $check = mysqli_query($connection, $checkQuery);
+
+        if(!$check){
+            die("DB query2 failed.");
+        }
+
+        $openedByUser = mysqli_fetch_assoc($check);
+        if($openedByUser) {
+            $alreadyOpened = 1;         
+        }
+    }
+
+    //Get the the current event to retrieve the current location
+    $currEventQuery = "SELECT * FROM tbl_events_216 WHERE event_id='$objId'";
+    $currEvent = mysqli_query($connection, $currEventQuery);
+    if(!$currEvent){
+        die("DB query3 failed.");
+    }
+    $currLocation = mysqli_fetch_assoc($currEvent);
+
+    //SET: insert/update data in DB
+    if(($alreadyOpened && ($location == $currLocation["address"])) || !$alreadyOpened) {
+        if ($state == "insert") {
+            $query =    "INSERT INTO tbl_events_216(address,event_type,waste_type,image_before,event_status, start_time, date) 
+                            VALUES ('$location','$event_type','$waste_type','$image_before','$event_status', current_timestamp , current_date); ";
+        }
+        else{
+            $query = "UPDATE tbl_events_216 SET address='$location',event_type='$event_type',waste_type='$waste_type',image_before='$image_before',event_status='$event_status', start_time=current_timestamp, date=current_date WHERE event_id='$objId'";
+        }  
+        $result = mysqli_query($connection, $query);
+        if(!$result){
+            die("DB query4 failed.");
+        }
+
+        if($state == "insert") { 
+            //get an event_id of the new inserted event
+            $lastId = $connection->insert_id;
+
+            //add the new event to the tbl_users_events_216 table
+            $query =    "INSERT INTO tbl_users_events_216(email, event_id, permission) 
+                            VALUES ('$email', $lastId, 1)";
+        }
+        $result = mysqli_query($connection, $query);
+        if(!$result){
+            die("DB query5 failed.");
+        }
+    }
+    else {
+        echo "<script> if(!alert('You already opened an event to that address'))
+                 { window.location.href='./Opened_List.php'; }; </script>";
     }
 ?>
 
@@ -62,7 +121,7 @@
             <div id="global">
                 <!-- Header -->
                 <header>
-                    <a id="logo" href="index.html"></a>
+                    <a id="logo" href="Home.php"></a>
                     
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                     <button type="button" id="search">
@@ -71,7 +130,12 @@
                         </svg>      
                     </button>
 
-                    <a id="profile" href="#"></a>
+                    <a id="profile" href="profile_page.php">
+                    <?php
+                        // $_SESSION["user_image"]="images/profile.png";
+                        echo '<img src="'.$_SESSION["user_image"].'">';
+                        ?>
+                    </a>
                 </header>
 
                 <!-- Main Navigation -->
@@ -80,7 +144,7 @@
                         <span class="material-icons">timelapse</span>
                         <p>Open events</p>
                     </a>
-                    <a href="index.html" class="selected">
+                    <a href="Home.php" class="selected">
                         <span class="material-icons" id="home_icon">home</span>
                         <p>Home</p>
                     </a>
@@ -93,7 +157,7 @@
                 <!-- Breadcrumbs -->
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="Home.php">Home</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Spot Cleaning</li>
                     </ol>
                 </nav>
@@ -112,7 +176,7 @@
 
                 <ul id="accordion" class="accordion">
                     <li id="selected">
-                        <a href="index.html" class="link"><i class="fa"><span class="material-icons">home</span></i>Home</a>
+                        <a href="Home.php" class="link"><i class="fa"><span class="material-icons">home</span></i>Home</a>
                     </li>
                     <li>
                         <a href="Opened_List.php" class="link"><i class="fa"><span class="material-icons">timelapse</span></i>Open Events</a>
@@ -140,7 +204,7 @@
 
                 <h5> 
                     <?php
-                        echo "<b>The details accepted successffully</b><br>"
+                        echo "<b>The details accepted successfully</b><br>"
                     ?>
                     <a href="Opened_List.php" class="btn btn-primary btn-lg" id="return">Go to Opened Events List</a>
                 </h5>

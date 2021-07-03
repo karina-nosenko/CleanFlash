@@ -1,5 +1,10 @@
 <?php
     include "db.php";
+    session_start();
+
+    if(!isset($_SESSION["user_email"])){
+        header('Location: ' . URL . 'index.php');
+    }
 ?>
 
 <?php
@@ -13,7 +18,7 @@
     }
     else die("DB query failed.");
 
-    $query = "UPDATE tbl_events_216 SET arrival_time=addtime(start_time,15) WHERE event_id=" . $objId;
+    $query = "UPDATE tbl_events_216 SET arrival_time=addtime(start_time,900) WHERE event_id=" . $objId;
     $update = mysqli_query($connection, $query);
     if(!$update) {
         die("DB query failed.");
@@ -59,7 +64,7 @@
             <div id="global">
                 <!-- Header -->
                 <header>
-                    <a id="logo" href="index.html"></a>
+                    <a id="logo" href="Home.php"></a>
                     
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                     <button type="button" id="search">
@@ -68,7 +73,12 @@
                         </svg>      
                     </button>
 
-                    <a id="profile" href="#"></a>
+                    <a id="profile" href="profile_page.php">
+                    <?php
+                        // $_SESSION["user_image"]="images/profile.png";
+                        echo '<img src="'.$_SESSION["user_image"].'">';
+                        ?>
+                    </a>
                 </header>
 
                 <!-- Main Navigation -->
@@ -77,7 +87,7 @@
                         <span class="material-icons">timelapse</span>
                         <p>Open events</p>
                     </a>
-                    <a href="index.html">
+                    <a href="Home.php">
                         <span class="material-icons" id="home_icon">home</span>
                         <p>Home</p>
                     </a>
@@ -90,7 +100,7 @@
                 <!-- Breadcrumbs -->
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="Home.php">Home</a></li>
                     <li class="breadcrumb-item"><a href="Opened_List.php">Open Events</a></li>
                     <li class="breadcrumb-item active" aria-current="page">
                         <?php
@@ -118,7 +128,7 @@
 
                 <ul id="accordion" class="accordion">
                     <li>
-                        <a href="index.html" class="link"><i class="fa"><span class="material-icons">home</span></i>Home</a>
+                        <a href="Home.php" class="link"><i class="fa"><span class="material-icons">home</span></i>Home</a>
                     </li>
                     <li id="selected">
                         <a href="Opened_List.php" class="link"><i class="fa"><span class="material-icons">timelapse</span></i>Open Events</a>

@@ -1,3 +1,4 @@
+/* Retrieve data from JSON file */
 $(document).ready(function(){
   var arrivalStatus =  $(".ArrivedOnTime").html();
   var eventType = $(".TypeOfEvent").html();
@@ -11,14 +12,15 @@ $(document).ready(function(){
 });
 
 
-
 /* Make the "select" input selected when updating */
 $(document).ready(function() {
-
   const selectObj = document.querySelector('#cat');
-    ind = selectObj.dataset.selected;
-    console.log(ind);
-    selectObj.options[ind].selected = true;
+  if(selectObj) {
+    if(selectObj.dataset.selected != "") {
+      ind = selectObj.dataset.selected;
+      selectObj.options[ind].selected = true;
+    }
+  }
 });
 
 
@@ -121,5 +123,11 @@ function check() {
 
 /**/
 
-
-
+function myFunction(id) {
+  var x = document.getElementById(id);
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else { 
+    x.className = x.className.replace(" w3-show", "");
+  }
+}

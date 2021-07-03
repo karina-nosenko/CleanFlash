@@ -83,7 +83,7 @@ header .form-control{
 #profile{
     width: 34px;
     height: 34px;
-    background-image: url(../images/profile.png);
+    /* background-image: url(../images/profile.png); */
 
     margin: 32px 13px 34px 13px;
 
@@ -192,6 +192,10 @@ header .form-control{
     left: auto;
     right: 13px;
     font-size: 16px;
+}
+
+.accordion li i.fa:hover {
+    background-color: transparent;
 }
 
 .accordion .down .material-icons {
@@ -346,8 +350,6 @@ header .form-control{
 
     display: flex;
     justify-content: flex-end;
-
-    z-index: 3;
 }
 
 .header span{
@@ -404,7 +406,7 @@ footer p{
 /************* Events List *************/
 
 #main .cont {
-    position: relative;
+    display: flex;
 }
 
 #main .list-item{
@@ -421,19 +423,12 @@ footer p{
     border-bottom: 2px solid #D6D6D6;
 }
 
-#main .list-item span.material-icons.update {
-    visibility: hidden;
-} 
-
-span.material-icons.edit {
-    position: absolute;
-    right: 56px;
-    top: 15px;
-    border-radius: 100px;
-    padding:3px;
+#main .material-icons.update {
+    border-bottom: 2px solid #D6D6D6;
+    padding-top: 16px;
 }
 
-span.material-icons.edit:hover {
+#main .material-icons.update:hover {
     cursor: pointer;
     background-color:#D6D6D6;
 }
@@ -476,9 +471,11 @@ span.material-icons.edit:hover {
     margin-left: 30px;
 }
 .Image_before:hover{
+    margin-top: 7px;
     transform: scale(1.3);
 }
 .Image_after:hover{
+    margin-top: 7px;
     transform: scale(1.3);
 }
 
@@ -520,8 +517,8 @@ span.material-icons.edit:hover {
 }
 .circleLimit{
     width: 0px;
-    margin-top: 30%;
-    margin-left: 25%;
+    margin-top: 50px;
+    margin-left: 100px;
 }
 .circleLimit:hover{
     -ms-transform: scale(1.5); /*IE 9*/
@@ -586,7 +583,7 @@ span.material-icons.edit:hover {
     flex-wrap: wrap;
     width: 319px;
     height: auto;
-    margin-left: 3%;
+    margin-left: 25px;
 }
 .frequently a,.frequently_1:hover{
     text-decoration: none;
@@ -649,6 +646,15 @@ span.material-icons.edit:hover {
     text-align: center;
 }
 
+.files input {
+    padding: 120px 50px 50px 50px;
+}
+
+input.filefield#img_upload, .form-group.files {
+    position: relative;
+    z-index: -5;
+}
+
 .form-control {
     margin: 0;
 }
@@ -672,103 +678,6 @@ input #submit {
     margin-bottom: 25px;
 }
 
-/************* Event type form *************/
-
-.tiles {
-    display:block; 
-    margin:0 0 130px 0; 
-    overflow:hidden;
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    position: relative;
-    z-index: -1;
-}
-
-.tiles .button {
-    color:#fff; 
-    display:block; 
-    font-weight:bold; 
-    overflow:hidden; 
-    padding:20px 10px; 
-    text-align:center; 
-    margin-bottom: 10px;
-}
-
-/* .tiles .button.blue, .tiles .button.orange {
-    background:#62c462;
-} */
-
-.panel {
-    background-color:#fff; 
-    border:none; 
-    border-radius:0; 
-    -webkit-box-shadow:none; 
-    box-shadow:none;
-    width: 100%;
-    margin: 0 auto 20px auto;
-    position: relative;
-    z-index: -1;
-}
-
-.panel-group .panel {
-    margin-bottom:0; 
-    border-radius:0;
-}
-
-.panel-group .panel+.panel 	{
-    margin-top:0;
-}
-
-.panel-default {
-    border:none;
-}
-
-.panel-heading {
-    padding:20px 15px; 
-    border:none; 
-    border-radius:0; 
-    width: auto;
-}
-
-.panel-default>.panel-heading {
-    position: relative; 
-    color:#333; 
-    background:none; 
-    border-top:1px solid #ddd;
-}
-
-.panel-default>.panel-heading+.panel-collapse>.panel-body {
-    border:none;
-}
-
-.panel-heading .accordion-toggle:after {
-    font-family:'Glyphicons Halflings'; 
-    float:right; 
-    color:grey;
-}
-
-#accordion.panel-group p {
-    font-size: 16px;
-}
-
-h4.panel-title {
-    font-size:20px;
-}
-
-i.fas.fa-angle-right::before {
-    position: absolute;
-    right: 17px;
-    top: 23px;
-}
-
-i.fas.fa-angle-down::before {
-    position: absolute;
-    right: 17px;
-    top: 23px;
-    display: none;
-}
 
 /***/
 
@@ -776,10 +685,48 @@ a#return.btn.btn-primary.btn-lg {
     margin-top: 30px;
     font-size: 15px;
 }
-
+/******************************/
+#loginfield{
+    width: 200px;
+}
+.formlabel{
+    margin-top: 20px;
+}
+#frm,.container h1{
+    margin-left: 0px;
+}
+/************profile page**************/
+#profile_template{
+    width: 100%;
+    height: 100%;
+}
+#changepassword{
+    margin-top: 65px;
+}
+#deleteaccount{
+    margin-top: 65px;
+    margin-left: 20px;
+    background-color: crimson;
+}
+#ggg{
+    height: 38px;
+    width: auto;
+    margin-top: 65px;
+    margin-left: 20px;
+}
+.filefield{
+    width: 250px;
+}
 /************* Desktop properties *************/
  @media only screen and (min-width: 536px){
 
+    /****************/
+    #frm,.container h1{
+        margin-left: 140px;
+    }
+    #loginfield{
+        width: 400px;
+    }
     /* Global */
 
     #global {
@@ -850,15 +797,23 @@ a#return.btn.btn-primary.btn-lg {
         visibility: visible;
     }
 
-    footer{
+    footer {
         display: block;
     }
 
-    /* Closed Events */
+    /* Events */
 
-    #main .list-item{
+    #main .list-item {
         width: 350px;
         margin-right:50px;
+    }
+
+    #main .cont .list-item {
+        margin-right: 0;
+    }
+
+    #main .cont{
+        margin-right: 50px;
     }
 
     #main {
@@ -869,12 +824,12 @@ a#return.btn.btn-primary.btn-lg {
     /* CallToAction */
 
     .callToaction p span{
-        margin-top: 15.5%;
+        margin-top: 60px;
     }
     .circleLimit{
         width: 0px;
-        margin-top: 5%;
-        margin-left: 35%;
+        margin-top: -15px;
+        margin-left: 400px;
         
     }
     .callToaction p{	
@@ -886,7 +841,7 @@ a#return.btn.btn-primary.btn-lg {
     /* Frequently */
 
     .frequently{
-        margin-left: 37%;
+        margin-left: 550px;
     }
 
     /* Event type */

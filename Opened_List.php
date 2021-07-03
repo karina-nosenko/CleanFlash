@@ -1,5 +1,10 @@
 <?php
     include "db.php";
+    session_start();
+
+    if(!isset($_SESSION["user_email"])){
+        header('Location: ' . URL . 'index.php');
+    }
 ?>
 
 <?php
@@ -15,7 +20,8 @@
     } 
 
     // get all data from DB
-    $query = "SELECT * FROM tbl_events_216 WHERE event_status=0 order by start_time and date";
+    $query = "SELECT * FROM tbl_events_216 e INNER JOIN tbl_users_events_216 ue USING(event_id) 
+                WHERE ue.email = '" . $_SESSION["user_email"] . "' and event_status=0 order by start_time and date";
     $result = mysqli_query($connection, $query);
 
     if(!$result) {
@@ -57,7 +63,7 @@
             <div id="global">
                 <!-- Header -->
                 <header>
-                    <a id="logo" href="index.html"></a>
+                    <a id="logo" href="Home.php"></a>
                     
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                     <button type="button" id="search">
@@ -66,7 +72,12 @@
                         </svg>      
                     </button>
 
-                    <a id="profile" href="#"></a>
+                    <a id="profile" href="profile_page.php">
+                    <?php
+                        // $_SESSION["user_image"]="images/profile.png";
+                        echo '<img src="'.$_SESSION["user_image"].'">';
+                        ?>
+                    </a>
                 </header>
 
                 <!-- Main Navigation -->
@@ -75,7 +86,7 @@
                         <span class="material-icons">timelapse</span>
                         <p>Open events</p>
                     </a>
-                    <a href="index.html">
+                    <a href="Home.php">
                         <span class="material-icons" id="home_icon">home</span>
                         <p>Home</p>
                     </a>
@@ -88,7 +99,7 @@
                 <!-- Breadcrumbs -->
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="Home.php">Home</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Open Events</li>
                     </ol>
                 </nav>
@@ -110,7 +121,7 @@
 
                 <ul id="accordion" class="accordion">
                     <li>
-                        <a href="index.html" class="link"><i class="fa"><span class="material-icons">home</span></i>Home</a>
+                        <a href="Home.php" class="link"><i class="fa"><span class="material-icons">home</span></i>Home</a>
                     </li>
                     <li id="selected">
                         <a href="#" class="link"><i class="fa"><span class="material-icons">timelapse</span></i>Open Events</a>
@@ -140,7 +151,9 @@
                 </section>
 
                 <?php
+                    $empty = 1;
                     while($row = mysqli_fetch_assoc($result)) {
+                        $empty=0;
                         //output data from each row
                         echo '<div class="cont">';
                         echo '<a href="Opened_Object.php?objId=' . $row["event_id"] . '" class="list-item opened">';
@@ -150,10 +163,12 @@
                         echo '</section><section>';
                         echo '<span>' . $row["start_time"] . '</span><br>';
                         echo '<span>' . $row["date"] . '</span></section>';
-                        echo '<span class="material-icons update">edit</span>';
                         echo '</a>';
-                        echo '<span onclick="redirectIt(this)" href="File.php?objId=' . $row["event_id"] . '" class="material-icons edit" title="edit">edit</span>';
+                        echo '<span onclick="redirectIt(this)" href="File.php?objId=' . $row["event_id"] . '" class="material-icons update" title="edit">edit</span>';
                         echo '</div>';
+                    }
+                    if($empty) {
+                        echo '<p>The list is empty.</p>';
                     }
                 ?>
             </div>

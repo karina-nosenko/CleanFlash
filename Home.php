@@ -1,3 +1,14 @@
+<?php
+//include "Register.php";
+include "config.php"; 
+
+session_start();
+
+if(!isset($_SESSION["user_email"])){
+    header('Location: ' . URL . 'index.php');
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -32,7 +43,7 @@
             <div id="global">
                 <!-- Header -->
                 <header>
-                    <a id="logo" href="index.html"></a>
+                    <a id="logo" href="Home.php"></a>
                     
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                     <button type="button" id="search">
@@ -40,8 +51,12 @@
                             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                         </svg>      
                     </button>
-
-                    <a id="profile" href="#"></a>
+                    <a id="profile" href="profile_page.php">
+                        <?php
+                        // $_SESSION["user_image"]="images/profile.png";
+                        echo '<img src="'.$_SESSION["user_image"].'">';
+                        ?>
+                    </a>
                 </header>
 
                 <!-- Main Navigation -->

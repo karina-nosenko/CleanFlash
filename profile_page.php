@@ -1,3 +1,33 @@
+<?php
+    include "db.php";
+    session_start();
+
+    if(!isset($_SESSION["user_email"])){
+        header('Location: ' . URL . 'index.php');
+    }
+?>
+
+<?php
+    error_reporting(0);
+    $delete = $_GET["delete"];
+    if($delete) {
+        $query = "DELETE FROM tbl_events_216 WHERE event_id='$delete'";
+        $result = mysqli_query($connection, $query);
+
+        if(!$result) {
+            die("DB query failed.");
+        }
+    } 
+
+    // get all data from DB
+    $query = "SELECT * FROM tbl_events_216 WHERE event_status=0 order by start_time and date";
+    $result = mysqli_query($connection, $query);
+
+    if(!$result) {
+        die("DB query failed.");
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -18,9 +48,6 @@
         <!-- Google Fonts -->
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-        
-        <!-- Font Awesome icons -->
-        <script src="https://kit.fontawesome.com/4affd58aad.js" crossorigin="anonymous"></script>
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/style.css">
@@ -35,7 +62,7 @@
             <div id="global">
                 <!-- Header -->
                 <header>
-                    <a id="logo" href="index.html"></a>
+                    <a id="logo" href="Home.php"></a>
                     
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                     <button type="button" id="search">
@@ -44,16 +71,21 @@
                         </svg>      
                     </button>
 
-                    <a id="profile" href="#"></a>
+                    <a id="profile" href="profile_page.php">
+                    <?php
+                        // $_SESSION["user_image"]="images/profile.png";
+                        echo '<img src="'.$_SESSION["user_image"].'">';
+                        ?>
+                    </a>
                 </header>
 
                 <!-- Main Navigation -->
                 <nav id="mainNav">
-                    <a href="Opened_List.php">
+                    <a href="#" class="selected">
                         <span class="material-icons">timelapse</span>
                         <p>Open events</p>
                     </a>
-                    <a href="index.html" class="selected">
+                    <a href="Home.php">
                         <span class="material-icons" id="home_icon">home</span>
                         <p>Home</p>
                     </a>
@@ -66,8 +98,8 @@
                 <!-- Breadcrumbs -->
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Select Event Type</li>
+                    <li class="breadcrumb-item"><a href="Home.php">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Profile</li>
                     </ol>
                 </nav>
              
@@ -75,7 +107,9 @@
 
             <!-- Heading -->
             <section class="header" id="mob_h">
-                <h1>Select Event Type</h1>
+                <h1>Open Events</h1>
+                <span class="material-icons">filter_alt</span>
+                <span class="material-icons">apps</span>
             </section>
 
             <!-- Side Navigation + Hamburger -->
@@ -85,11 +119,11 @@
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><span class="material-icons">menu_open</span></a>
 
                 <ul id="accordion" class="accordion">
-                    <li id="selected">
-                        <a href="index.html" class="link"><i class="fa"><span class="material-icons">home</span></i>Home</a>
-                    </li>
                     <li>
-                        <a href="Opened_List.php" class="link"><i class="fa"><span class="material-icons">timelapse</span></i>Open Events</a>
+                        <a href="Home.php" class="link"><i class="fa"><span class="material-icons">home</span></i>Home</a>
+                    </li>
+                    <li id="selected">
+                        <a href="#" class="link"><i class="fa"><span class="material-icons">timelapse</span></i>Open Events</a>
                     </li>
                     <li>
                         <a href="Closed_List.php" class="link" id="hasSubmenu"><span class="down"><i class="fa"><span class="material-icons">assignment_turned_in</span></i>Closed Events</span><i class="fa fa-chevron-down"></i></a>
@@ -110,61 +144,28 @@
 
                 <!-- Heading -->
                 <section class="header" id="desk_h">
-                    <h1>Select Event Type</h1>
+                   <?php
+                   echo '<h1>Hello '.$_SESSION["user_name"].'</h1>';
+                   ?>
+                    <span class="material-icons">filter_alt</span>
+                    <span class="material-icons">apps</span>
                 </section>
-
-
-                    <div class="tiles">
-                    	<div  class="col-xs-4 col-md-4">
-                            <a class="btn btn-primary btn-lg" class="event_type" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                Call To Bin
-                            </a>
-                        </div>
-                        <div  class="col-xs-4 col-md-4">
-                            <a class="btn btn-primary btn-lg" class="event_type" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                Spot Cleaning
-                            </a>
-                        </div>
-                    </div>
-                    <div class="container">
-                    <div class="panel-group" id="accordion">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                                        Call To Bin<i class="fas fa-angle-right"></i><i class="fas fa-angle-down"></i>
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="collapseOne" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <p>Choose <b>Call To Bin</b> if you have some litter, but there's no trash bin in the area.<br>
-                                        You'll need to enter your location, and the Autorobot will arrive as soon as possible.<br>
-                                        It will open its own trash can on the entered location.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                                        Spot Cleaning<i class="fas fa-angle-right"></i><i class="fas fa-angle-down"></i>
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="collapseTwo" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <p>Choose <b>Spot Cleaning</b> if you see some litter thrown on the street.<br>
-                                        You'll need to enter the location of the litter, and upload the litter photo.<br>
-                                        The Autorobot will clean it and upload an image of the cleaned area!
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
+                <?php
+                // echo '<p><img src="'.$_SESSION["user_image"].'"></p>';
+                echo '<div id="profile_template">';
+                echo '<div id="profile_name"><span><b>Your Name: </b>'.$_SESSION["user_name"].'</span></div>';
+                echo '<div id="profile_email"><b>Your Email: </b>'.$_SESSION["user_email"].'</div>';
+                echo '</div>';
+                // echo '<section class="profile_name"><b>Your Name: </b>'.$_SESSION["user_name"].'</section>';
+                ?>
+                <a href="update_user.php"><button type="button" class="btn btn-primary" id="changepassword">Update password</button></a>
+                <a href="delete_user.php"><button type="button" class="btn btn-danger" id="ggg">Delete account</button></a>
             </div>
+
+            <?php
+                //release returned data
+                mysqli_free_result($result);
+            ?>
 
             <!-- Footer -->
             <footer>
@@ -174,3 +175,8 @@
         </div>
     </body>
 </html>
+
+<?php
+    //close DB connection
+    mysqli_close($connection);
+?>
