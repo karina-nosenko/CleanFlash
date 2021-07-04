@@ -188,7 +188,7 @@
                     <div class="mob_form">
                         <label class="asterisk">*</label>
                         <label><b>Upload a picture of the waste</b></label><br>
-                        <input type="file" id="img" name="img" accept="image/*"><br><br>
+                        <input type="text" name="img" class="filefield" id="img" value="<?php echo $image_before;?>"><br>
                     </div>
 
                     <div class="desc_form">
