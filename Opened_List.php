@@ -120,14 +120,15 @@
             <!-- Heading -->
             <section class="header" id="mob_h">
                 <h1>Open Events</h1>
-                <span class="material-icons">filter_alt</span>
+                <span class="material-icons filter">filter_alt</span>
                 <span class="material-icons">apps</span>
+            </section> 
 
-                <!-- <section class="filter_box">
+            <section class="filter_box mob">
                 <h6>Filter by:</h6>
                 <a href="#">All</a><br>
                 <a href="#">Opened by me</a><br>
-                <a href="#">Opened by other users</a> -->
+                <a href="#">Opened by other users</a> 
             </section>
 
             <!-- Side Navigation + Hamburger -->
@@ -163,10 +164,10 @@
                 <!-- Heading -->
                 <section class="header" id="desk_h">
                     <h1>Open Events</h1>
-                    <span class="material-icons">filter_alt</span>
+                    <span class="material-icons filter">filter_alt</span>
                     <span class="material-icons">apps</span>
 
-                    <section class="filter_box">
+                    <section class="filter_box desk">
                     <h6>Filter by:</h6>
                     <a href="#">All</a><br>
                     <a href="#">Opened by me</a><br>

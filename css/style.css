@@ -473,9 +473,15 @@ footer p{
     padding: 10px;
     background-color: #f5f5f5;
     position: absolute;
-    right: 20px;
+    right: 15px;
+    top: 137px;
     border-radius: 7px;
     white-space: nowrap;
+}
+
+.filter {
+    background-color: #f5f5f5;
+    border-radius: 100%;
 }
 
 /************* Closed Object *************/
@@ -837,6 +843,12 @@ a#return.btn.btn-primary.btn-lg {
     #main {
         display: flex;
         flex-wrap: wrap;
+    }
+
+    /* Filter */
+    .filter_box {
+        top: 249px;
+        right: 20px;
     }
 
     /* CallToAction */
