@@ -9,7 +9,7 @@
 ?>
 
 <?php 
-    //error_reporting(0);
+    error_reporting(0);
 	//get data from querystring and escape variables for security
 	$location 	    = mysqli_real_escape_string($connection, $_GET['location']);
 	$event_type  	= mysqli_real_escape_string($connection, $_GET['event_type']);
@@ -20,96 +20,89 @@
 	$objId    	    = $_GET['objId'];
     $email          = $_SESSION["user_email"];
 
+    $query = 0;
+    $secondQuery = 0;
+
     //Check if the event was opened by another user
     $checkQuery = "SELECT * FROM tbl_events_216 WHERE address = '$location' and event_status=0";  
     $check = mysqli_query($connection, $checkQuery);
     if(!$check){
         die("DB query1 failed.");
     }
-
+    //--------------------
     $sharedEvent =  mysqli_fetch_assoc($check);
-    $alreadyOpened = 0;
-    $notShared = 0;
-
-    if($sharedEvent) {  //if the event already exists
-        //check if the event was created by the current user
-        $checkQuery = "SELECT * FROM tbl_users_events_216 ue INNER JOIN tbl_events_216 USING (event_id) 
-                        WHERE ue.event_id = " . $sharedEvent["event_id"] . " and
-                        ue.email = '" . $_SESSION["user_email"] . "'";
-        $check = mysqli_query($connection, $checkQuery);
-
-        if(!$check){
+    
+    if($sharedEvent) {  //if event was already opened
+        //check if the event was opened by the current user or not
+        $sharedQuery = "SELECT * from tbl_users_events_216 WHERE event_id =".$sharedEvent["event_id"];
+        $shared = mysqli_query($connection, $sharedQuery);
+        if(!$shared){
             die("DB query2 failed.");
         }
+        $sharedInstance = mysqli_fetch_assoc($shared);
 
-        $openedByUser = mysqli_fetch_assoc($check);
-        if($openedByUser) {
-            $alreadyOpened = 1; 
-            $notShared = 1;        
+        if($sharedInstance["email"] != $_SESSION["user_email"]) {   //the event was opened by another user
+            $query = "INSERT INTO tbl_users_events_216(email, event_id, permission)
+                            VALUES ('$email'," . $sharedEvent["event_id"] . ", 0)";
+
+            if ($state != "insert") {
+                $secondQuery = "DELETE FROM tbl_events_216 WHERE event_id='$objId'";
+            }
         }
     }
-
-    //Get the the current event to retrieve the current location
-    $currEventQuery = "SELECT * FROM tbl_events_216 WHERE event_id='$objId'";
-    $currEvent = mysqli_query($connection, $currEventQuery);
-    if(!$currEvent){
-        die("DB query3 failed.");
-    }
-    $currLocation = mysqli_fetch_assoc($currEvent);
-
-    //SET: insert/update data in DB
-    if(($alreadyOpened && ($location == $currLocation["address"])) || !$alreadyOpened) {
+    else {  //if it is a unique event
         if ($state == "insert") {
             $query =    "INSERT INTO tbl_events_216(address,event_type,waste_type,image_before,event_status, start_time, date) 
                             VALUES ('$location','$event_type','$waste_type','$image_before','$event_status', current_timestamp , current_date); ";
         }
         else{
-            $query = "UPDATE tbl_events_216 SET address='$location',event_type='$event_type',waste_type='$waste_type',image_before='$image_before',event_status='$event_status', start_time=current_timestamp, date=current_date WHERE event_id='$objId'";
-            if (!$notShared) {
-                //if user updated to the address that another user opened - make only read permission to the first one
-                $permissionQuery = "UPDATE tbl_users_events_216 SET permission=0 WHERE event_id='$objId'";
-                $permission = mysqli_query($connection, $permissionQuery);
-                if(!$permission) {
-                    die("DB query4 failed.");
-                }
-            }
-        }  
+            $query = "UPDATE tbl_events_216 SET address='$location',event_type='$event_type',waste_type='$waste_type',
+                            image_before='$image_before',event_status='$event_status', start_time=current_timestamp, date=current_date WHERE event_id='$objId'";
+        } 
+    }
+
+    //execute the queries
+    if($query) {
+        $result = mysqli_query($connection, $query);
+        if(!$result){
+            die("DB query3 failed.");
+        }
+    }
+    if($secondQuery) {
+        $secondResult = mysqli_query($connection, $secondQuery);
+        if(!$secondResult){
+            die("DB query4 failed.");
+        }
+    }
+
+    //if inserted a unique event - add it to the tbl_users_events_216 table
+    if(!$sharedEvent && ($state == "insert")) {
+        $lastId = $connection->insert_id;
+        $query =    "INSERT INTO tbl_users_events_216(email, event_id, permission) 
+                            VALUES ('$email', $lastId, 1)";
         $result = mysqli_query($connection, $query);
         if(!$result){
             die("DB query5 failed.");
-        }
+        }      
 
-        if($state == "insert") { 
-            //get an event_id of the new inserted event
-            $lastId = $connection->insert_id;
-
-            //add the new event to the tbl_users_events_216 table
-            $query =    "INSERT INTO tbl_users_events_216(email, event_id, permission) 
-                            VALUES ('$email', $lastId, $notShared)";
-
-            //update the estimated arrival time
-            $arrivalQuery = "UPDATE tbl_events_216 SET arrival_time=addtime(start_time,900) WHERE event_id=$lastId";
-            $arrival = mysqli_query($connection, $arrivalQuery);
-            if(!$arrival) {
-                die("DB query failed.");
-            }
-        }
+        //update the estimated arrival time
+        $query = "UPDATE tbl_events_216 SET arrival_time=addtime(start_time,900) WHERE event_id=$lastId";
         $result = mysqli_query($connection, $query);
-        if(!$result){
-            die("DB query6 failed.");
-        }
-
-        echo '<script>console.log($notShared)</script>';
-
-        if(!$notShared) {
-            echo "<script> if(!alert('Event with the same address is already opened by another user.
-            You can view its progress, but cannot edit.'))
-            { window.location.href='./Opened_List.php'; }; </script>";
+        if(!$result) {
+            die("DB query failed.");
         }
     }
-    else {
-        echo "<script> if(!alert('You already opened an event to that address'))
-                 { window.location.href='./Opened_List.php'; }; </script>";
+
+    //display relevant alerts
+    if($sharedEvent) {
+        if($sharedInstance["email"] == $email) {
+            echo "<script> if(!alert('You already opened an event to that address'))
+                     { window.location.href='./Opened_List.php'; }; </script>";
+        }
+        else {
+            echo '<script> if(!alert("Event with the same address is already opened by another user You can view its progress but cannot edit"))
+                { window.location.href="./Opened_List.php"; }; </script>';
+        }
     }
 ?>
 
@@ -238,8 +231,11 @@
             </div>
 
             <?php
-                mysqli_free_result($check);
-                mysqli_free_result($currEvent);
+                //mysqli_free_result($check);
+                //mysqli_free_result($currEvent);
+                //mysqli_free_result($shared);
+
+
             ?>
 
             <!-- Footer -->

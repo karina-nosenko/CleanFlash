@@ -466,6 +466,18 @@ footer p{
     color: green;
 }
 
+/* Filter */
+.filter_box {
+    width: auto;
+    height: auto;
+    padding: 10px;
+    background-color: #f5f5f5;
+    position: absolute;
+    right: 20px;
+    border-radius: 7px;
+    white-space: nowrap;
+}
+
 /************* Closed Object *************/
 
 .ArrivedOnTime{
@@ -883,7 +895,5 @@ span.material-icons:hover {
 #main .material-icons.view {
     cursor: default;
 }
-
-
 
  

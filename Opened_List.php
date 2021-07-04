@@ -11,9 +11,20 @@
     error_reporting(0);
     $delete = $_GET["delete"];
     if($delete) {
-        $query = "DELETE FROM tbl_events_216 WHERE event_id='$delete'";
-        $result = mysqli_query($connection, $query);
+        //before delete from the events table, check if the user has edit permission
+        $checkQuery = "SELECT * FROM tbl_users_events_216 WHERE event_id='$delete' and email='".$_SESSION["user_email"]."'";
+        $check = mysqli_query($connection, $checkQuery);
+        $checkInstance = mysqli_fetch_assoc($check);
+        if($checkInstance["permission"] == 1) {
+            $query = "DELETE FROM tbl_events_216 WHERE event_id='$delete'";
+            $result = mysqli_query($connection, $query);
+            if(!$result) {
+                die("DB query failed.");
+            }
+        }
 
+        $query = "DELETE FROM tbl_users_events_216 WHERE event_id='$delete' and email='".$_SESSION["user_email"]."'";
+        $result = mysqli_query($connection, $query);
         if(!$result) {
             die("DB query failed.");
         }
@@ -21,7 +32,7 @@
 
     // get all data from DB
     $query = "SELECT * FROM tbl_events_216 e INNER JOIN tbl_users_events_216 ue USING(event_id) 
-                WHERE ue.email = '" . $_SESSION["user_email"] . "' and event_status=0 order by date and start_time";
+                WHERE ue.email = '" . $_SESSION["user_email"] . "' and e.event_status=0";
     $result = mysqli_query($connection, $query);
 
     if(!$result) {
@@ -111,6 +122,12 @@
                 <h1>Open Events</h1>
                 <span class="material-icons">filter_alt</span>
                 <span class="material-icons">apps</span>
+
+                <!-- <section class="filter_box">
+                <h6>Filter by:</h6>
+                <a href="#">All</a><br>
+                <a href="#">Opened by me</a><br>
+                <a href="#">Opened by other users</a> -->
             </section>
 
             <!-- Side Navigation + Hamburger -->
@@ -148,6 +165,13 @@
                     <h1>Open Events</h1>
                     <span class="material-icons">filter_alt</span>
                     <span class="material-icons">apps</span>
+
+                    <section class="filter_box">
+                    <h6>Filter by:</h6>
+                    <a href="#">All</a><br>
+                    <a href="#">Opened by me</a><br>
+                    <a href="#">Opened by other users</a>
+            </section>
                 </section>
 
                 <?php
@@ -156,7 +180,7 @@
                         $empty=0;
 
                         //check if the current event is with view only permission
-                        $eventQuery = "SELECT * FROM tbl_users_events_216 WHERE event_id = " .$row["event_id"];
+                        $eventQuery = "SELECT * FROM tbl_users_events_216 WHERE email = '". $_SESSION["user_email"] . "' and event_id = " .$row["event_id"];
                         $event = mysqli_query($connection, $eventQuery);
                         if(!$event) {
                             die("DB query failed.");
