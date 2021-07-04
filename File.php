@@ -197,7 +197,6 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group files">
-                                    <!-- <input type="file" name="img" class="form-control" id="img_upload" multiple="" value=" <?php //echo $image_before;?>"> -->
                                     <input type="text" name="img" class="filefield" id="img_upload" value="<?php echo $image_before;?>">
                                 </div>
                             </div>

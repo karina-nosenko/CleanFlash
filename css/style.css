@@ -373,8 +373,9 @@ div.modal-header {
     display: block;
 }
 
-span.material-icons:hover {
-    cursor: pointer;
+div.modal-backdrop.fade {
+    display: relative;
+    z-index: -10;
 }
 
 #desk_h {
@@ -426,6 +427,12 @@ footer p{
 #main .material-icons.update {
     border-bottom: 2px solid #D6D6D6;
     padding-top: 16px;
+}
+
+#main .material-icons.view {
+    border-bottom: 2px solid #D6D6D6;
+    padding-top: 16px;
+    color: #D6D6D6;
 }
 
 #main .material-icons.update:hover {
@@ -595,40 +602,11 @@ footer p{
     color: red;
 }
 
-.files input {
-    outline: 2px dashed #92b0b3;
-    outline-offset: -10px;
-    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
-    transition: outline-offset .15s ease-in-out, background-color .15s linear;
-    padding: 120px 0px 85px 35%;
-    text-align: center !important;
-    margin: 0;
-    width: 100% !important;
+.col-md-6 {
+    width: 839px;
 }
-.files input:focus{     outline: 2px dashed #92b0b3;  outline-offset: -10px;
-    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
-    transition: outline-offset .15s ease-in-out, background-color .15s linear; border:1px solid #92b0b3;
- }
 
 .files{ position:relative}
-
-.files:after {  
-    pointer-events: none;
-    position: absolute;
-    top: 60px;
-    left: 0;
-    width: 50px;
-    right: 0;
-    height: 56px;
-    content: "";
-    background-image: url(https://image.flaticon.com/icons/png/128/109/109612.png);
-    display: block;
-    margin: 0 auto;
-    background-size: 100%;
-    background-repeat: no-repeat;
-}
-
-.color input{ background-color:#f1f1f1;}
 
 .files:before {
     position: absolute;
@@ -646,22 +624,50 @@ footer p{
     text-align: center;
 }
 
-.files input {
-    padding: 120px 50px 50px 50px;
+.files:after {  
+    pointer-events: none;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 50px;
+    right: 0;
+    height: 56px;
+    content: "";
+    background-image: url(https://image.flaticon.com/icons/png/128/109/109612.png);
+    display: block;
+    margin: 0 auto;
+    background-size: 100%;
+    background-repeat: no-repeat;
 }
 
-input.filefield#img_upload, .form-group.files {
+.files input {
+    outline: 2px dashed #92b0b3;
+    outline-offset: -10px;
+    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    padding: 120px 0px 85px 35%;
+    text-align: center !important;
+    margin: 0;
+    width: 100% !important;
+
+    padding: 120px 50px 50px 50px;
     position: relative;
-    z-index: -5;
+}
+
+.files input:focus{     outline: 2px dashed #92b0b3;  outline-offset: -10px;
+    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    transition: outline-offset .15s ease-in-out, background-color .15s linear; border:1px solid #92b0b3;
+ }
+
+input.filefield#img_upload {
+    position: relative;
 }
 
 .form-control {
     margin: 0;
 }
- 
-.col-md-6 {
-    width: 839px;
-}
+
+.color input{ background-color:#f1f1f1;} 
 
 input#inputAddress.form-control, select#inlineFormCustomSelectPref.custom-select.my-1.mr-sm-2 {
     width: 392px;
@@ -868,6 +874,14 @@ a#return.btn.btn-primary.btn-lg {
     .mob_form {
         display: none;
     }
+}
+
+span.material-icons:hover {
+    cursor: pointer;
+}
+
+#main .material-icons.view {
+    cursor: default;
 }
 
 

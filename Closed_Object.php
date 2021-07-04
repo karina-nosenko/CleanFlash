@@ -178,8 +178,8 @@
                     <?php
                         $img_1 = $row["image_before"];
                         $img_2 = $row["image_after"];
-                        if(!$img_1) $img = "images/Image_1.png";
-                        if(!$img_2) $img = "images/Image_2.png";
+                        if(!$img_1) $img = "images/image_1.png";
+                        if(!$img_2) $img = "images/image_2.png";
 
                         echo '<p><b>Event type: </b><span class="TypeOfEvent">' . $row["event_type"] . '</span></p>';
                         echo '<p><b>Date: </b>' . $row["date"] . '</p>';

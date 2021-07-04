@@ -21,7 +21,7 @@
 
     // get all data from DB
     $query = "SELECT * FROM tbl_events_216 e INNER JOIN tbl_users_events_216 ue USING(event_id) 
-                WHERE ue.email = '" . $_SESSION["user_email"] . "' and event_status=0 order by start_time and date";
+                WHERE ue.email = '" . $_SESSION["user_email"] . "' and event_status=0 order by date and start_time";
     $result = mysqli_query($connection, $query);
 
     if(!$result) {
@@ -154,6 +154,19 @@
                     $empty = 1;
                     while($row = mysqli_fetch_assoc($result)) {
                         $empty=0;
+
+                        //check if the current event is with view only permission
+                        $eventQuery = "SELECT * FROM tbl_users_events_216 WHERE event_id = " .$row["event_id"];
+                        $event = mysqli_query($connection, $eventQuery);
+                        if(!$event) {
+                            die("DB query failed.");
+                        }
+
+                        $currevent = mysqli_fetch_assoc($event);
+                        $permission = $currevent["permission"];
+
+                        //echo "<script>console.log($permission)</script>";
+
                         //output data from each row
                         echo '<div class="cont">';
                         echo '<a href="Opened_Object.php?objId=' . $row["event_id"] . '" class="list-item opened">';
@@ -164,7 +177,16 @@
                         echo '<span>' . $row["start_time"] . '</span><br>';
                         echo '<span>' . $row["date"] . '</span></section>';
                         echo '</a>';
-                        echo '<span onclick="redirectIt(this)" href="File.php?objId=' . $row["event_id"] . '" class="material-icons update" title="edit">edit</span>';
+
+                        echo '<span ';
+                        if($permission) {     //define edit or view only permission
+                            echo 'onclick="redirectIt(this)" href="File.php?objId=' . $row["event_id"] . '" class="material-icons update" title="edit" ';
+                        }
+                        else {
+                            echo 'class="material-icons view" title="no edit" ';
+                        }
+                        echo ' ">edit</span>';
+
                         echo '</div>';
                     }
                     if($empty) {
