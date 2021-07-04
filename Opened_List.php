@@ -168,11 +168,11 @@
                     <span class="material-icons">apps</span>
 
                     <section class="filter_box desk">
-                    <h6>Filter by:</h6>
-                    <a href="#">All</a><br>
-                    <a href="#">Opened by me</a><br>
-                    <a href="#">Opened by other users</a>
-            </section>
+                        <h6>Filter by:</h6>
+                        <a href="Opened_List.php?filter=1">All</a><br>
+                        <a href="Opened_List.php?filter=2">Opened by me</a><br>
+                        <a href="Opened_List.php?filter=3">Opened by other users</a>
+                    </section>
                 </section>
 
                 <?php
@@ -186,11 +186,17 @@
                         if(!$event) {
                             die("DB query failed.");
                         }
-
                         $currevent = mysqli_fetch_assoc($event);
                         $permission = $currevent["permission"];
 
-                        //echo "<script>console.log($permission)</script>";
+                        // implement filter
+                        $filter = $_GET["filter"];
+                        if($filter == 2) {
+                            if(!$permission)    continue;
+                        }
+                        else if($filter == 3) {
+                            if($permission)     continue;
+                        }
 
                         //output data from each row
                         echo '<div class="cont">';

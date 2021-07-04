@@ -1,3 +1,17 @@
+/* Implement filtering of the opened events */
+$(document).ready(function(){
+  $(".filter").click(function(){
+    $(".filter_box").toggle();
+
+    if($(".filter_box").css("display") == "block") {
+      $(".filter").css("backgroundColor","#f5f5f5");
+    }
+    else {
+      $(".filter").css("backgroundColor","#fff");
+    }
+  });
+});
+
 /* Retrieve data from JSON file */
 $(document).ready(function(){
   var arrivalStatus =  $(".ArrivedOnTime").html();

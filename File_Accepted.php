@@ -29,7 +29,6 @@
     if(!$check){
         die("DB query1 failed.");
     }
-    //--------------------
     $sharedEvent =  mysqli_fetch_assoc($check);
     
     if($sharedEvent) {  //if event was already opened

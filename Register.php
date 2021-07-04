@@ -112,8 +112,6 @@ else {
         <!-- Side Navigation + Hamburger -->
         <span onclick="openNav()" id="hamburger"><span class="material-icons">menu</span></span>
 
-
-
         <!-- Main content -->
         <div id="main">
             <div class="whiteSpace"></div>
