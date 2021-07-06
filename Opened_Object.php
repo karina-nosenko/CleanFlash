@@ -1,5 +1,6 @@
 <?php
     include "db.php";
+    include "config.php";
     session_start();
 
     if(!isset($_SESSION["user_email"])){
@@ -73,7 +74,7 @@
                         </svg>      
                     </button>
 
-                    <a id="profile" href="profile_page.php">
+                    <a id="profile" href="profile_page.php" title="Profile">
                     <?php
                         // $_SESSION["user_image"]="images/profile.png";
                         echo '<img src="'.$_SESSION["user_image"].'">';

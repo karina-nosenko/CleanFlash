@@ -157,7 +157,6 @@ else {
         <footer>
             <p>Made by Yosef & Karina &copy; 2021</p>
         </footer>
-
     </div>
 </body>
 
