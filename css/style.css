@@ -21,7 +21,7 @@ header, main, nav, aside, footer {
 
 #main {
     margin: 0 auto;
-    padding: 10px 20px 78px 20px;
+    padding: 10px 20px 88px 20px;
 }
 
 #main .whiteSpace {
@@ -83,8 +83,6 @@ header .form-control{
 #profile{
     width: 34px;
     height: 34px;
-    /* background-image: url(../images/profile.png); */
-
     margin: 32px 13px 34px 13px;
 
     display: block;
@@ -107,7 +105,6 @@ header .form-control{
 }
 
 .sidenav a {
-    /* padding: 50px 8px 0 10px; */
     text-decoration: none;
     font-size: 18px;
     color: #000;
@@ -515,22 +512,27 @@ footer p{
 
 /*ObjectPage*/
 .sub_container1{
-    /*width: 480px;*/
     margin-right: 100px;
 } 
 
+.sub_container1 button{
+    margin-bottom: 20px;
+}
+
 /************* Home *************/
 
-/* CallToAction */
-.callToaction{             
-    text-decoration: none;
+.home_container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
-.callToaction:hover{         
-    text-decoration: none;
-}
-.callToaction p{	
+
+a.callToaction {
+    display: block;
     width: 159px;
     height: 159px;
+    margin: 0 auto;
+
     box-shadow: 0px 0px 5px rgba(117, 117, 117, 0.8);
     background: #62c462;
     color: #ffffff;
@@ -543,88 +545,67 @@ footer p{
     line-height: 1.3;
     text-align: center;
     border-radius: 50%;
-}
-.callToaction p span{
-    display: block;
     padding-top: 25px;
-    margin-left: 0px;
 }
-.circleLimit{
-    width: 0px;
-    margin-top: 50px;
-    margin-left: 100px;
-}
-.circleLimit:hover{
-    -ms-transform: scale(1.5); /*IE 9*/
-    -webkit-transform: scale(1.5); /*Safari 3-8*/
+
+a.callToaction:hover {
+    -ms-transform: scale(1.5);
+    -webkit-transform: scale(1.5); 
     transform: scale(1.1); 
-    background-color: #555555;
+    text-decoration: none;
+    cursor: pointer;
+    color: #fff;
 }
+
+.frequently {
+    width: 319px;
+    height: auto;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+.frequently a {
+    display: flex;
+    justify-content: space-around;
+    padding: 8px;
+	box-shadow: 0px 2px 2px rgba(96, 96, 96, 0.3);
+	background: #eeeeee;
+    text-decoration: none;
+    color: black;
+    margin-bottom: 1px;
+}
+
+.frequently a svg {
+    margin-top: 5px;
+}
+
+.frequently a .freq_type {
+    width: 110px;
+    border-right: 1px solid #555;
+    margin-left: 0;
+}
+
+.frequently a .freq_address {
+    width: 130px;
+}
+
+/* CallToAction */
+
+.keyboard-arrow-right-icon-1 {
+	width: 23px;
+	height: 23px;
+	background: #777777;
+}
+
+
+/************* File *************/
+
 .file{
     position: relative;
     margin-top: 10%;
     z-index: 0;
 }
 
-/* Frequently */
-
-.frequently_1 {
-	width: 319px;
-	height: 37px;
-	padding: 8px 8px 8px 8px;
-	box-shadow: 0px 2px 2px rgba(96, 96, 96, 0.3);
-	background: #eeeeee;
-}
-.vertical{
-    width: 1px;
-    height: 17px;
-    border-color: #555555;
-    border-width: 0.5px;
-    border-style: solid;
-    margin-top: 5px;
-}
-.keyboard-arrow-right-icon-1 {
-	width: 23px;
-	height: 23px;
-	background: #777777;
-}
-.left_text_freq{
-    margin-top: 0px;
-    width: 120px;
-    height: 50px;
-}
-.left_text_freq span{
-    margin-bottom: 12px;
-}
-.frequently_1{
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 2px;
-}
-.right_text_freq{
-    width: 130px;
-    height: 50px;
-    margin-left: 12px;
-}
-.right_text_freq span{
-    margin-left: 1px;
-}
-.arrow_right{
-    margin-left: 15px;
-}
-.frequently{    
-    display: flex;
-    flex-wrap: wrap;
-    width: 319px;
-    height: auto;
-    margin-left: 25px;
-}
-.frequently a,.frequently_1:hover{
-    text-decoration: none;
-    color: black;
-}
-
-/************* File *************/
 .asterisk{
     color: red;
 }
@@ -701,7 +682,6 @@ div.row {
  
 input.filefield#img_upload {
     position: relative;
-    /* z-index: 0; */
 }
 
 .form-control {
@@ -711,7 +691,7 @@ input.filefield#img_upload {
 .color input{ background-color:#f1f1f1;} 
 
 input#inputAddress.form-control, select#inlineFormCustomSelectPref.custom-select.my-1.mr-sm-2 {
-    width: 392px;
+    width: 360px;
     margin-bottom: 25px;
 }
 
@@ -719,13 +699,15 @@ form {
     margin-bottom: 25px;
 }
 
-
-/***/
-
 a#return.btn.btn-primary.btn-lg {
     margin-top: 30px;
     font-size: 15px;
 }
+
+.filefield.custom-select.my-1.mr-sm-2 {
+    width: 360px;
+}
+
 /******************************/
 #loginfield{
     width: 200px;
@@ -855,6 +837,10 @@ a#return.btn.btn-primary.btn-lg {
         display: block;
     }
 
+    .filefield.custom-select.my-1.mr-sm-2, input#inputAddress.form-control, select#inlineFormCustomSelectPref.custom-select.my-1.mr-sm-2 {
+        width: 392px;
+    }
+
     .breadcrumb{
         visibility: visible;
     }
@@ -891,25 +877,15 @@ a#return.btn.btn-primary.btn-lg {
 
     /* CallToAction */
 
-    .callToaction p span{
-        margin-top: 60px;
-    }
-    .circleLimit{
-        width: 0px;
-        margin-top: -15px;
-        margin-left: 400px;
-        
-    }
-    .callToaction p{	
+    a.callToaction {
         width: 359px;
         height: 359px;
         font-size: 58px;
+        padding-top: 80px;
     }
 
-    /* Frequently */
-
-    .frequently{
-        margin-left: 550px;
+    .frequently a {
+        margin-bottom: 15px;
     }
 
     /* Event type */
@@ -994,7 +970,6 @@ span.material-icons:hover {
 }
 @media only screen  and (max-width: 606px) and (min-width: 597px){
     #delaccount{
-        /* position: absolute; */
         margin-top: 165px;
         margin-left: 1px;
     }

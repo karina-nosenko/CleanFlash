@@ -123,11 +123,6 @@ $(document).ready(function() {
 
 /*------------------------------------------------------*/
 function check() {
-    /*var y = document.forms["myForm"]["img"].value;
-    if(y==0){
-        alert("Please upload a picture of the waste");
-        return false;
-    }*/
     var z = document.forms["myForm"]["location"].value;
     if(z==""){
       alert("Please enter location");

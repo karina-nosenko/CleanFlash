@@ -1,38 +1,25 @@
 <?php
 include "db.php";
 include "config.php";
-// $query_  = "SELECT * FROM tbl_users_216 WHERE email='"
-//     . $_POST["loginMail"]
-//     . "'";
-// $result_ = mysqli_query($connection, $query_);
-// $row_ = mysqli_fetch_array($result_);
-
-// if (is_array($row_)) { //true if form was submitted)
-//     $message = "The user exist!";
-// }
-// // session_start(); //on logout session_destroy();
-// else {
-    if (!(empty($_POST["loginMail"])&&(empty($_POST["loginPass"])))) { //true if form was submitted
-        $query  = "SELECT * FROM tbl_users_216 WHERE email='"
-            . $_POST["loginMail"]
-            . "' and password = '"
-            . $_POST["loginPass"]
-            . "'";
-        $result = mysqli_query($connection, $query);
-        $row = mysqli_fetch_array($result);
-
-        if (is_array($row)) {
-            session_start(); //on logout session_destroy();
-            $_SESSION["user_email"] = $row["email"];
-            $_SESSION["user_image"]= $row["image"];        //"images/profile3.png";    //$query["image"];
-            $_SESSION["user_pass"]=$row["password"];
-            $_SESSION["user_name"]=$row["full_name"];
-            header('Location: ' . URL . 'Home.php');
-        } else {
-
-            $message = "Invalid Username or Password!";
-        }
+if (!(empty($_POST["loginMail"])&&(empty($_POST["loginPass"])))) { //true if form was submitted
+    $query  = "SELECT * FROM tbl_users_216 WHERE email='"
+        . $_POST["loginMail"]
+        . "' and password = '"
+        . $_POST["loginPass"]
+        . "'";
+    $result = mysqli_query($connection, $query);
+    $row = mysqli_fetch_array($result);
+    if (is_array($row)) {
+        session_start(); //on logout session_destroy();
+        $_SESSION["user_email"] = $row["email"];
+        $_SESSION["user_image"]= $row["image"];   
+        $_SESSION["user_pass"]=$row["password"];
+        $_SESSION["user_name"]=$row["full_name"];
+        header('Location: ' . URL . 'Home.php');
+    } else {
+        $message = "Invalid Username or Password!";
     }
+}
 // }
 ?>
 <!DOCTYPE html>
@@ -85,7 +72,6 @@ include "config.php";
 
         <!-- Heading -->
         <section class="header">
-            <h1></h1>
         </section>
 
         <!-- Side Navigation + Hamburger -->

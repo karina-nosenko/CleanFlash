@@ -86,7 +86,6 @@
 
                     <a id="profile" href="profile_page.php" title="Profile">
                     <?php
-                        // $_SESSION["user_image"]="images/profile.png";
                         echo '<img src="'.$_SESSION["user_image"].'">';
                         ?>
                     </a>

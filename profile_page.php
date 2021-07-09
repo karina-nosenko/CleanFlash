@@ -154,7 +154,6 @@ if (!$result) {
             </section>
             <div class="person-details">
                 <?php
-                // echo '<p><img src="'.$_SESSION["user_image"].'"></p>';
                 echo '<div id="profile_template">';
                 echo '<div id="profile_name"><span><b>Your Name: </b>' . $_SESSION["user_name"] . '</span></div>';
                 echo '<div id="profile_email"><b>Your Email: </b>' . $_SESSION["user_email"] . '</div>';

@@ -150,7 +150,6 @@
 
                     <a id="profile" href="profile_page.php" title="Profile">
                     <?php
-                        // $_SESSION["user_image"]="images/profile.png";
                         echo '<img src="'.$_SESSION["user_image"].'">';
                         ?>
                     </a>
@@ -228,14 +227,6 @@
                 </h5>
 
             </div>
-
-            <?php
-                //mysqli_free_result($check);
-                //mysqli_free_result($currEvent);
-                //mysqli_free_result($shared);
-
-
-            ?>
 
             <!-- Footer -->
             <footer>

@@ -94,7 +94,6 @@
 
                     <a id="profile" href="profile_page.php" title="Profile">
                     <?php
-                        // $_SESSION["user_image"]="images/profile.png";
                         echo '<img src="'.$_SESSION["user_image"].'">';
                         ?>
                     </a>
@@ -171,12 +170,12 @@
                     <div class="form-group">
                         <label class="asterisk">*</label>
                         <label><b>Enter the location</b></label><br>
-                        <input type="text" class="filefield" class="form-control" id="inputAddress" placeholder="Streetname 1, Haifa" name="location" value="<?php echo $addr;?>">
+                        <input type="text" class="filefield form-control" id="inputAddress" placeholder="Streetname 1, Haifa" name="location" value="<?php echo $addr;?>">
                     </div>
 
                     <label class="asterisk">*</label>
                     <label><b>Please select the type of waste</b></label><br>
-                    <select class="filefield" class="custom-select my-1 mr-sm-2" id="cat" name="waste_type" data-selected="<?php echo $waste_type;?>">
+                    <select class="filefield custom-select my-1 mr-sm-2" id="cat" name="waste_type" data-selected="<?php echo $waste_type;?>">
                         <option value="">Select</option>
                         <option value="1">Metal</option>
                         <option value="2">Wood</option>
@@ -189,7 +188,7 @@
                     <div class="mob_form">
                         <label class="asterisk">*</label>
                         <label><b>Upload a picture of the waste</b></label><br>
-                        <input type="text" name="img" class="filefield" id="img" value="<?php echo $image_before;?>"><br>
+                        <input type="text" name="img" class="filefield custom-select my-1 mr-sm-2" id="img" value="<?php echo $image_before;?>"><br>
                     </div>
 
                     <div class="desc_form">

@@ -18,12 +18,6 @@
         $row = mysqli_fetch_assoc($result);
     }
     else die("DB query failed.");
-
-    // $query = "UPDATE tbl_events_216 SET arrival_time=addtime(start_time,900) WHERE event_id=" . $objId;
-    // $update = mysqli_query($connection, $query);
-    // if(!$update) {
-    //     die("DB query failed.");
-    // } 
 ?>
 
 <!DOCTYPE html>
@@ -76,7 +70,6 @@
 
                     <a id="profile" href="profile_page.php" title="Profile">
                     <?php
-                        // $_SESSION["user_image"]="images/profile.png";
                         echo '<img src="'.$_SESSION["user_image"].'">';
                         ?>
                     </a>
@@ -118,7 +111,7 @@
                 <?php
                     echo '<h1>' . $row["address"] . '</h1>';
                 ?>
-                <span class="material-icons" title="Delete this event" data-toggle="modal" data-target="#note_msg" class="deletion_icon">delete</span>
+                <span class="material-icons deletion_icon" title="Delete this event" data-toggle="modal" data-target="#note_msg">delete</span>
             </section>
 
             <!-- Side Navigation + Hamburger -->

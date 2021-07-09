@@ -54,7 +54,6 @@ if(!isset($_SESSION["user_email"])){
                     </button>
                     <a id="profile" href="profile_page.php" title="Profile">
                         <?php
-                        // $_SESSION["user_image"]="images/profile.png";
                         echo '<img src="'.$_SESSION["user_image"].'">';
                         ?>
                     </a>
@@ -115,45 +114,53 @@ if(!isset($_SESSION["user_email"])){
                 <!-- Heading -->
                 <section class="header" id="desk_h">
                 </section>
+                
+                <a href="File.php" class="callToaction" title="Create a new Event">
+                    Call to AutoRobot
+                </a>
 
-                <article class="circleLimit">
-                    <a class="callToaction" href="File.php">
-                        <p class="circle-1"><span>Call to AutoRobot</span></p>
-                    </a>
-                </article>
                 <div class="frequently">
-                    <a href="#"><div class="frequently_1">
-                        <section class="left_text_freq"><span>Area Cleaning </span></section>
-                        <span class="vertical"></span>
-                        <section class="right_text_freq"><span>Haifa, Einstein 99</span></section>
-                        <span class="arrow_right"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                    <p>Frequently used:</p>
+                    <a href=#>
+                        <span class="freq_type">
+                            <span>Area Cleaning</span>
+                        </span>
+                        <span class="freq_address">
+                            <span>Haifa, Einstein 99</span>
+                        </span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                 fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
                                     d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
-                            </svg></span>
-                    </div></a>
-                    <a href="#"><div class="frequently_1">
-                        <section class="left_text_freq"><span>Spot Cleaning </span></section>
-                        <span class="vertical"></span>
-                        <section class="right_text_freq"><span>Haifa, Eilat 15</span></section>
-                        <span class="arrow_right"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        </svg>
+                    </a>
+                    <a href=#>
+                        <span class="freq_type">
+                            <span>Spot Cleaning</span>
+                        </span>
+                        <span class="freq_address">
+                            <span>Haifa, Eilat 15</span>
+                        </span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                 fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
                                     d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
-                            </svg></span>
-                    </div></a>
-                    <a href="#"><div class="frequently_1">
-                        <section class="left_text_freq"><span>Call to bin </span></section>
-                        <span class="vertical"></span>
-                        <section class="right_text_freq"><span>Haifa, Einstein 36</span></section>
-                        <span class="arrow_right"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        </svg>
+                    </a>
+                    <a href=#>
+                        <span class="freq_type">
+                            <span>Call to bin</span>
+                        </span>
+                        <span class="freq_address">
+                            <span>Haifa, Einstein 36</span>
+                        </span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                 fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
                                     d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
-                            </svg></span>
-                    </div></a>
+                        </svg>
+                    </a>
                 </div>
-
             </div>
 
             <!-- Footer -->

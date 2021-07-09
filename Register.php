@@ -12,7 +12,6 @@ $row_ = mysqli_fetch_array($result_);
 if (is_array($row_)) { //true if form was submitted)
     $message = "The user exist!";
 }
-// session_start(); //on logout session_destroy();
 else {
     if (!empty($_POST["loginMail"])) { //true if form was submitted
         $query  = "SELECT * FROM tbl_users_216 WHERE email='"
@@ -106,7 +105,6 @@ else {
 
         <!-- Heading -->
         <section class="header">
-            <h1></h1>
         </section>
 
         <!-- Side Navigation + Hamburger -->

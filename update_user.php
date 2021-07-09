@@ -13,41 +13,6 @@ if (!empty($_POST["loginNewpass"])) {
     else
         header('Location: ' . URL . 'Home.php');
 }
-// session_start(); //on logout session_destroy();
-// if (!empty($_POST["loginMail"])) { //true if form was submitted
-//     $query  = "SELECT * FROM tbl_users_216 WHERE email='"
-//         . $_POST["loginMail"]
-//         . "' and password = '"
-//         . $_POST["loginPass"]
-//         . "'";
-//     $result = mysqli_query($connection, $query);
-//     $row = mysqli_fetch_array($result);
-
-//     if (is_array($row)) {
-//         if (!empty($_POST["loginMail"])) { //true if form was submitted
-//             $emailAddress = $_POST["loginMail"];
-//             $passWord = $_POST["loginPass"];
-//             $newpassWord = $_POST["loginNewpass"];
-//             $query  = "UPDATE tbl_users_216
-//             SET password = '$newpassWord'
-//             WHERE email ='$emailAddress'";
-//             if (mysqli_query($connection, $query)) {
-//                 // session_destroy();
-//                 // header('Location: ' . URL . 'Login_Page.php');
-//                 $message= "Updated successfully" ;
-//             }
-//             else {
-//                 $message= "Error: try again. " ;
-//             }
-//         }
-//         else {
-//             $message = "Invalid Username or Password!";
-//         }
-//     }
-//     else {
-//         $message = "Invalid Username or Password!";
-//     }
-// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -99,7 +64,6 @@ if (!empty($_POST["loginNewpass"])) {
 
         <!-- Heading -->
         <section class="header">
-            <h1></h1>
         </section>
 
         <!-- Side Navigation + Hamburger -->
@@ -125,10 +89,6 @@ if (!empty($_POST["loginNewpass"])) {
                 </script>
                 <form action="#" method="post" id="frm">
                     <div class="form-group">
-                        <!-- <label class="formlabel" for="loginMail">Email: </label>
-                        <input type="email" id="loginfield" class="form-control" name="loginMail" id="loginMail" aria-describedby="emailHelp" placeholder="Enter email" />
-                        <label class="formlabel" for="loginPass">Password: </label>
-                        <input type="password" id="loginfield" class="form-control" name="loginPass" id="loginPass" placeholder="Enter Password" /> -->
                         <label class="formlabel">New password:</label>
                         <input type="password" id="loginfield" class="form-control" name="loginNewpass" id="loginNewpass" placeholder="Enter Password" required/>
                     </div>
