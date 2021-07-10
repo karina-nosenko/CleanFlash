@@ -105,7 +105,7 @@
                         <span class="material-icons">timelapse</span>
                         <p>Open events</p>
                     </a>
-                    <a href="Home.php" class="selected">
+                    <a href="Home.php">
                         <span class="material-icons" id="home_icon">home</span>
                         <p>Home</p>
                     </a>
@@ -137,7 +137,7 @@
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><span class="material-icons">menu_open</span></a>
 
                 <ul id="accordion" class="accordion">
-                    <li id="selected">
+                    <li>
                         <a href="Home.php" class="link"><i class="fa"><span class="material-icons">home</span></i>Home</a>
                     </li>
                     <li>
