@@ -20,88 +20,117 @@
 	$objId    	    = $_GET['objId'];
     $email          = $_SESSION["user_email"];
 
-    $query = 0;
-    $secondQuery = 0;
+    $case = 0;
+    $sharedId = 0;
 
-    //Check if the event was opened by another user
-    $checkQuery = "SELECT * FROM tbl_events_216 WHERE address = '$location' and event_status=0";  
-    $check = mysqli_query($connection, $checkQuery);
-    if(!$check){
+    // The new location is shared, if it already exists and it doesn't belong to me
+    $isSharedQuery = "SELECT * FROM tbl_users_events_216 ue INNER JOIN tbl_events_216 e
+                            USING(event_id)
+                             WHERE e.address = '$location' and ue.email != '$email' and e.event_status=0";
+    $isShared = mysqli_query($connection, $isSharedQuery);
+    if(!$isShared){
         die("DB query1 failed.");
     }
-    $sharedEvent =  mysqli_fetch_assoc($check);
+    $shared =  mysqli_fetch_assoc($isShared);
     
-    if($sharedEvent) {  //if event was already opened
-        //check if the event was opened by the current user or not
-        $sharedQuery = "SELECT * from tbl_users_events_216 WHERE event_id =".$sharedEvent["event_id"];
-        $shared = mysqli_query($connection, $sharedQuery);
-        if(!$shared){
-            die("DB query2 failed.");
-        }
-        $sharedInstance = mysqli_fetch_assoc($shared);
-
-        if($sharedInstance["email"] != $_SESSION["user_email"]) {   //the event was opened by another user
-            $query = "INSERT INTO tbl_users_events_216(email, event_id, permission)
-                            VALUES ('$email'," . $sharedEvent["event_id"] . ", 0)";
-
-            if ($state != "insert") {
-                $secondQuery = "DELETE FROM tbl_events_216 WHERE event_id='$objId'";
-            }
-        }
+    if($shared["address"]) {
+        $case = 'view only';
+        $sharedId = $shared["event_id"];
     }
-    else {  //if it is a unique event
-        if ($state == "insert") {
-            $query =    "INSERT INTO tbl_events_216(address,event_type,waste_type,image_before,event_status, start_time, date) 
-                            VALUES ('$location','$event_type','$waste_type','$image_before','$event_status', current_timestamp , current_date); ";
-        }
-        else{
-            $query = "UPDATE tbl_events_216 SET address='$location',event_type='$event_type',waste_type='$waste_type',
-                            image_before='$image_before',event_status='$event_status', start_time=current_timestamp, date=current_date WHERE event_id='$objId'";
-        } 
+    else {
+        if($state == "insert")  $case = 'just insert';
+        else                    $case = 'just update';
     }
 
-    //execute the queries
-    if($query) {
-        $result = mysqli_query($connection, $query);
-        if(!$result){
-            die("DB query3 failed.");
-        }
+    // Check the situation when the location already exists, and it opened by me
+    $isOpenedQuery = "SELECT * FROM tbl_users_events_216 ue INNER JOIN tbl_events_216 e
+                            USING(event_id)
+                             WHERE e.address = '$location' and ue.email = '$email' and e.event_status=0";
+    $isOpened = mysqli_query($connection, $isOpenedQuery);
+    if(!$isOpened){
+        die("DB query2 failed.");
     }
-    if($secondQuery) {
-        $secondResult = mysqli_query($connection, $secondQuery);
-        if(!$secondResult){
-            die("DB query4 failed.");
-        }
-    }
+    $opened =  mysqli_fetch_assoc($isOpened);
 
-    //if inserted a unique event - add it to the tbl_users_events_216 table
-    if(!$sharedEvent && ($state == "insert")) {
-        $lastId = $connection->insert_id;
-        $query =    "INSERT INTO tbl_users_events_216(email, event_id, permission) 
-                            VALUES ('$email', $lastId, 1)";
-        $result = mysqli_query($connection, $query);
-        if(!$result){
-            die("DB query5 failed.");
-        }      
-
-        //update the estimated arrival time
-        $query = "UPDATE tbl_events_216 SET arrival_time=addtime(start_time,900) WHERE event_id=$lastId";
-        $result = mysqli_query($connection, $query);
-        if(!$result) {
-            die("DB query failed.");
-        }
-    }
-
-    //display relevant alerts
-    if($sharedEvent) {
-        if($sharedInstance["email"] == $email) {
-            echo "<script> if(!alert('You already opened an event to that address'))
-                     { window.location.href='./Opened_List.php'; }; </script>";
+    if($opened["address"]) {
+        if($state == "insert") {
+            $case = 'already opened by me';
         }
         else {
-            echo '<script> if(!alert("Event with the same address is already opened by another user You can view its progress but cannot edit"))
-                { window.location.href="./Opened_List.php"; }; </script>';
+            //if the updated location is the same to the previous one - it's a regular update
+            $isSameQuery = "SELECT * FROM tbl_events_216 WHERE address = '$location' and event_id = $objId";
+            $isSame = mysqli_query($connection, $isSameQuery);
+            if(!$isSame){
+                die("DB query3 failed.");
+            }
+            $same =  mysqli_fetch_assoc($isSame);
+            $case = $same["address"] ? 'just update' : 'already opened by me';
         }
+    }
+
+    // Implement the relevant case
+    switch($case) {
+        case 'just update':
+            $query = "UPDATE tbl_events_216 
+                        SET address='$location',event_type='$event_type',waste_type='$waste_type',image_before='$image_before',
+                        event_status='$event_status', start_time=current_timestamp, date=current_date WHERE event_id='$objId'";
+            $result = mysqli_query($connection, $query);
+            if(!$result){
+                die("DB query4 failed.");
+            }
+            break;
+
+        case 'just insert':
+            // insert to the tbl_events_216 table
+            $query =    "INSERT INTO tbl_events_216(address,event_type,waste_type,image_before,event_status, start_time, date) 
+                            VALUES ('$location','$event_type','$waste_type','$image_before','$event_status', current_timestamp , current_date); ";
+            $result = mysqli_query($connection, $query);
+            if(!$result){
+                die("DB query5 failed.");
+            }
+            // insert to the tbl_users_events_216 table
+            $lastId = $connection->insert_id;
+            $query =    "INSERT INTO tbl_users_events_216(email, event_id, permission) 
+                                VALUES ('$email', $lastId, 1)";
+            $result = mysqli_query($connection, $query);
+            if(!$result){
+                die("DB query6 failed.");
+            }      
+            //update the estimated arrival time
+            $query = "UPDATE tbl_events_216 SET arrival_time=addtime(start_time,900) WHERE event_id=$lastId";
+            $result = mysqli_query($connection, $query);
+            if(!$result) {
+                die("DB query7 failed.");
+            }
+            break;
+
+        case 'view only':
+            // insert to the tbl_users_events_216 table with view only permission
+            $query = "INSERT INTO tbl_users_events_216(email, event_id, permission)
+                        VALUES ('$email', $sharedId , 0)";
+            $result = mysqli_query($connection, $query);
+            if(!$result) {
+                die("DB query8 failed.");
+            }
+            //delete the previous event from the current user in case of update
+            if ($state == "edit") {
+                $query = "DELETE FROM tbl_events_216 WHERE event_id='$objId'";
+                $result = mysqli_query($connection, $query);
+                if(!$result) {
+                    die("DB query9 failed.");
+                }
+            } 
+            echo '<script> if(!alert("Event with the same address is already opened by another user You can view its progress but cannot edit"))
+                    { window.location.href="./Opened_List.php"; }; </script>';       
+            break;
+
+        case 'already opened by me':
+            echo '<script> if(!alert("You already opened an event to that address"))
+                    { window.location.href="./Opened_List.php"; }; </script>';
+            break;
+
+        default:
+            //do nothing
     }
 ?>
 

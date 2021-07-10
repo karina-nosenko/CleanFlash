@@ -23,7 +23,7 @@ else {
         $row = mysqli_fetch_array($result);
 
         if (is_array($row)) {
-            $message = "The user exist!";
+            $message = "The user exists!";
         } else {
             if (!empty($_POST["loginMail"])) { //true if form was submitted
                 $emailAddress = $_POST["loginMail"];
@@ -45,7 +45,7 @@ else {
                     $_SESSION["user_image"] = $Image;
                     $_SESSION["user_pass"]=$passWord;
                     $_SESSION["user_name"]=$FullName;
-                    header('Location: ' . URL . 'Home.php');
+                    header('Location: ' . URL . 'index.php');
                 } else {
                     $message = "Error: try again. ";
                 }
@@ -133,7 +133,7 @@ else {
                     </div>
                     <div class="form-group">
                         <label for="loginName">Full name: </label>
-                        <input type="text" id="loginfield" class="form-control" name="loginName" id="loginName" placeholder="Enter Image" required />
+                        <input type="text" id="loginfield" class="form-control" name="loginName" id="loginName" placeholder="Enter your name" required />
                     </div>
                     <div class="form-group">
                         <label for="loginPass">Password: </label>

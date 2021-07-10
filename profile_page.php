@@ -75,7 +75,6 @@ if (!$result) {
 
                 <a id="profile" href="profile_page.php" title="Profile">
                     <?php
-                    // $_SESSION["user_image"]="images/profile.png";
                     echo '<img src="' . $_SESSION["user_image"] . '">';
                     ?>
                 </a>
@@ -174,7 +173,7 @@ if (!$result) {
                             <h4 class="modal-title">Confirm Deletion</h4>
                         </div>
                         <div class="modal-body">
-                            <p>Are you sure you want to delete that event?</p>
+                            <p>Are you sure you want to delete the account?</p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal"><b>No, cansel</b></button>
