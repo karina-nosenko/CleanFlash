@@ -74,11 +74,6 @@ if (!(empty($_POST["loginMail"])&&(empty($_POST["loginPass"])))) { //true if for
         <section class="header">
         </section>
 
-        <!-- Side Navigation + Hamburger -->
-        <span onclick="openNav()" id="hamburger"><span class="material-icons">menu</span></span>
-
-
-
         <!-- Main content -->
         <div id="main">
             <div class="whiteSpace"></div>
@@ -114,9 +109,9 @@ if (!(empty($_POST["loginMail"])&&(empty($_POST["loginPass"])))) { //true if for
         </div>
 
         <!-- Footer -->
-        <footer>
+        <!-- <footer>
             <p>Made by Yosef & Karina &copy; 2021</p>
-        </footer>
+        </footer> -->
 
     </div>
 </body>

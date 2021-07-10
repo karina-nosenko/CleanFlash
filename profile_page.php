@@ -108,9 +108,9 @@ if (!$result) {
 
         <!-- Heading -->
         <section class="header" id="mob_h">
-            <h1>Open Events</h1>
-            <span class="material-icons">filter_alt</span>
-            <span class="material-icons">apps</span>
+            <?php
+            echo '<h1>Hello ' . $_SESSION["user_name"] . '</h1>';
+            ?>
         </section>
 
         <!-- Side Navigation + Hamburger -->
@@ -148,8 +148,6 @@ if (!$result) {
                 <?php
                 echo '<h1>Hello ' . $_SESSION["user_name"] . '</h1>';
                 ?>
-                <span class="material-icons">filter_alt</span>
-                <span class="material-icons">apps</span>
             </section>
             <div class="person-details">
                 <?php
