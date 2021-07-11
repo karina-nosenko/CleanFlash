@@ -728,12 +728,10 @@ a#return.btn.btn-primary.btn-lg {
 }
 
 #delaccount{
-    position: relative;
     height: 38px;
     width: auto;
     margin-top: 65px;
     margin-left: 0px;
-    z-index: -10;
 }
 .filefield{
     width: 250px;
@@ -750,7 +748,6 @@ a#return.btn.btn-primary.btn-lg {
 
     /****************/
     #delaccount{
-        position: relative;
         height: 38px;
         width: auto;
         margin-top: 165px;
@@ -925,7 +922,6 @@ span.material-icons:hover {
 
 @media only screen  and (max-width: 536px) and (min-width: 446px){
     #delaccount{
-        position: relative;
         height: 38px;
         width: auto;
         margin-top: 165px;
@@ -934,7 +930,6 @@ span.material-icons:hover {
 }
 @media only screen  and (max-width: 526px) and (min-width: 435px){
     #delaccount{
-        position: relative;
         height: 38px;
         width: auto;
         margin-top: 165px;
@@ -943,7 +938,6 @@ span.material-icons:hover {
 }
 @media only screen  and (max-width: 436px) and (min-width: 425px){
     #delaccount{
-        position: relative;
         height: 38px;
         width: auto;
         margin-top: 165px;
