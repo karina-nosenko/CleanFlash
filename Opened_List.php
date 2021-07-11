@@ -126,9 +126,9 @@
 
             <section class="filter_box mob">
                 <h6>Filter by:</h6>
-                <a href="#">All</a><br>
-                <a href="#">Opened by me</a><br>
-                <a href="#">Opened by other users</a> 
+                <a href="Opened_List.php?filter=1">All</a><br>
+                <a href="Opened_List.php?filter=2">Opened by me</a><br>
+                <a href="Opened_List.php?filter=3">Opened by other users</a> 
             </section>
 
             <!-- Side Navigation + Hamburger -->
